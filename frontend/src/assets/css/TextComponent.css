@@ -1,0 +1,35 @@
+/* TextComponent.css */
+.text-container {
+    color: #5907f3;
+    padding: 30px;
+    max-width: 400px;
+    position: absolute; /* Fixed position to stay on the left */
+    left: 0;
+    height: auto;
+    top: 40px;
+  
+}
+.text-container:hover{
+    box-shadow: -1px 15px 30px -12px rgb(26, 25, 25);
+    cursor : pointer
+}
+
+.text-container h2 {
+    margin-bottom: 10px;
+}
+
+.text-container p {
+    margin: 0;
+}
+.writer-container {
+    font-size: 50px;
+    font-family: "Bigelow Rules";
+    font-weight: 500;
+    color: #5907f3;
+    text-align: left;
+    margin: 20px 0;
+    height: auto;
+    width: auto;
+    overflow: hidden;
+}
+/*  */

@@ -1,0 +1,91 @@
+/* Footer.css */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #313030;
+  width: 100%;
+  height: 300px;
+  box-sizing: border-box;
+}
+
+.contact-info {
+  margin: 5px 0;
+  font-size: 15 px;
+  font-weight: 400px;
+  color : #e4e4e4;
+  display: flex;
+}
+.copyright {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #a1a1a1;
+}
+.footer-hr {
+  width: 80%;
+  border: none;
+  border-top: 1px solid #db39fc;
+  margin: 20px 0;
+}
+
+.btn-15 {
+  background: #b621fe;
+  border: none;
+  width: 200px;
+  height: 50px;
+  border-radius: 20px;
+  z-index: 1;
+  position: relative; /* Ajout de position relative */
+  padding: 10px 20px;
+  font-size: 15px;
+  font-family: "calibri";
+  color: #fff;
+  overflow: hidden;
+  transition: 0.5s;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+.btn-15:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  background-color: #c23dff;
+  border-radius: 5px;
+  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+              7px 7px 20px 0px rgba(0,0,0,.1),
+              4px 4px 5px 0px rgba(0,0,0,.1);
+  transition: all 0.3s ease;
+}
+.btn-15:hover {
+  color: #fff;
+}
+.btn-15:hover:after {
+  left: 0;
+  width: 100%;
+}
+.btn-15:active {
+  top: 2px;
+}
+.footer-container {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  position: absolute;
+  margin-top : 40rem
+}
+
+@media (max-width: 768px) {
+  .footer-hr {
+      width: 100%;
+  }
+
+  .btn-15 {
+      font-size: 14px;
+      padding: 8px 16px;
+  }
+}

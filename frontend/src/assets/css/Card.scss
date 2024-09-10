@@ -1,0 +1,194 @@
+
+$border-radius-size: 14px;
+$infraction1: #ec9b3b;
+$infraction2: #ee5487;
+$infraction3: #f6901a;
+$infraction4: #82bb30;
+$infraction5: #4facff;
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+.slide-container {
+  position: absolute;
+  width: 900px;
+  text-align: center;
+  margin : 0 auto;
+  left: 17rem;
+}
+
+.wrapper {
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.clash-card {
+  background: #a200ff;
+  width: 400px;
+  display: inline-block;
+  margin: 0 auto;
+  border-radius: $border-radius-size + 5;
+  position: relative;
+  text-align: center;
+  box-shadow: -1px 15px 30px -12px rgb(37, 37, 37);
+  z-index: 9999;
+}
+
+.clash-card__image clash-card__image--infraction {
+  position: relative;
+  height: 230px;
+  margin-bottom: 35px;
+  border-top-left-radius: $border-radius-size;
+  border-top-right-radius: $border-radius-size;
+}
+
+
+
+.clash-card__level {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.clash-card__level--infraction1 {
+  color: #5907f3;
+}
+
+.clash-card__level--infraction2 {
+  color:#5907f3;
+}
+
+.clash-card__level--infraction3 {
+  color:#5907f3;
+}
+
+.clash-card__level--infraction4 {
+  color: #5907f3;
+}
+
+.clash-card__level--infraction5 {
+  color: #5907f3;
+}
+.clash-card__level clash-card__level--infraction{
+  color: #ffffff;
+}
+.clash-card__unit-name {
+  font-size: 26px;
+  color: rgb(255, 255, 255);
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+.clash-card__unit-description {
+  padding: 20px;
+  margin-bottom: 10px;
+  color : #fff;
+}
+
+.clash-card__unit-stats--infraction1 {
+  background: #5907f3;
+
+  .one-third {
+    border-right: 1px solid #5907f3;;
+  }
+}
+
+.clash-card__unit-stats--infraction2 {
+  background: #5907f3;
+
+  .one-third {
+    border-right: 1px solid #5907f3
+  }
+}
+
+.clash-card__unit-stats--infraction3 {
+  background: #5907f3;
+
+  .one-third {
+    border-right: 1px solid darken(#5907f3, 8%);
+  }
+}
+
+.clash-card__unit-stats--infraction4 {
+  background: #5907f3;
+
+  .one-third {
+    border-right: 1px solid darken(#5907f3, 6%);
+  }
+}
+
+.clash-card__unit-stats--infraction5 {
+  background: #5907f3;
+
+  .one-third {
+    border-right: 1px solid darken(#5907f3, 6%);
+  }
+}
+  
+.clash-card__unit-stats {
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+  border-bottom-left-radius: $border-radius-size;
+  border-bottom-right-radius: $border-radius-size;
+
+  .one-third {
+    width: 33%;
+    float: left;
+    padding: 20px 15px;
+    
+  }
+
+  sup {
+    position: absolute;
+    bottom: 4px;
+    font-size: 45%;
+    margin-left: 2px;
+
+  }
+
+  .stat {
+    position: relative;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .stat-value {
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 12px;
+  }
+
+  .no-border {
+    border-right: none;
+  }
+}
+
+.clearfix:after {
+  visibility: visible;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  color: #5907f3;
+  height: 0;
+}
+
+.slick-prev {
+  left: 100px;
+  z-index: 999;
+  color: #5907f3;
+}
+
+.slick-next {
+  right: 100px;
+  z-index: 999;
+  color: #5907f3;
+}

@@ -1,0 +1,104 @@
+
+
+.signal {
+  position: absolute;
+  top: 15rem;
+  left: 1rem;
+  border: 2.5px solid rgb(177, 37, 196);
+  border-radius: 12px;
+  background: #fdfdfd;
+  padding: 1rem 0;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.03);
+  height: auto;
+  z-index: 10; 
+}
+
+.signal__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.5rem;
+  width: 5.5rem;
+  color: #ffffff;
+  transition: 250ms ease all;
+  text-decoration: none; 
+}
+
+.signal__link span {
+  position: absolute;
+  left: 100%;
+  background-color: rgb(177, 37, 196);
+  width: 110px;
+  transform: translate(-1rem);
+  margin-left: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 0.75rem;
+  transition: 250ms ease all;
+  border-radius: 17.5px;
+  font-family: 'Calibri', sans-serif;
+  white-space: nowrap; /* Éviter le retour à la ligne du texte */
+  z-index: 20; /* Assurez-vous que le texte est au-dessus des autres éléments */
+}
+
+.signal__link:hover span {
+  opacity: 1;
+  transform: translate(0);
+}
+
+.signal__menu {
+  position: relative;
+}
+
+.signal__item {
+  position: relative;
+}
+
+.signal__item:last-child::before {
+  content: "";
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+  top: 0;
+  left: 1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  background: #9308e4;
+  border-radius: 17.5px;
+  transition: 250ms cubic-bezier(1, 0.2, 0.1, 1.2) all;
+}
+
+/* Gooey Effect */
+@keyframes gooeyEffect-1 {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(0.5, 1.5);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+/* Adjustments for layout */
+.content {
+  margin-left: 8rem; /* Ajustez la marge gauche pour correspondre à la largeur de votre nav */
+  padding: 2rem;
+  flex-grow: 1; /* Assurez-vous qu'il grandit pour remplir l'espace disponible */
+  overflow: auto; /* Pour gérer le débordement si nécessaire */
+}
+
+.contain {
+  display: flex;
+  width: 100%;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

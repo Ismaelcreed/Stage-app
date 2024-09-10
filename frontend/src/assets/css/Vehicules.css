@@ -1,0 +1,33 @@
+/* Vehicules.css */
+.container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10rem;
+}
+
+.table-container {
+    margin-top: 20px;
+}
+
+.custom-button {
+    background-color: #a200ff; /* Couleur de fond personnalisée */
+    border: none; /* Couleur de bordure personnalisée */
+    font-size: 16px;
+    border-radius: 10px;
+    height: 40px;
+    padding: 0 20px;
+    color: #fff;
+    margin: 0 auto;/* Couleur du texte */
+}
+
+.ant-divider-vertical {
+    height: 100%;
+    border-left: 1px solid #ddd;
+    margin: 0;
+}
+
+.ant-form-item {
+    margin-bottom: 15px;
+}

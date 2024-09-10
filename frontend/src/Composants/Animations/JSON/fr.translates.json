@@ -1,0 +1,115 @@
+{
+  "home": "Accueil",
+  "report": "Signalement",
+  "statistics": "Statistiques",
+  "account": "Compte",
+  "language": "Langue",
+  "infraction": {
+    "speeding": {
+      "title": "Excès de Vitesse",
+      "description": "Dépassement de la vitesse autorisée",
+      "fineAmount": "600 000 MGA"
+    },
+    "illegalParking": {
+      "title": "Stationnement Illégal",
+      "description": "Stationnement dans une zone interdite",
+      "fineAmount": "300 000 MGA"
+    },
+    "signalViolation": {
+      "title": "Non-respect des Signaux",
+      "description": "Ignorer les signaux de circulation",
+      "fineAmount": "400 000 MGA"
+    },
+    "drivingUnderInfluence": {
+      "title": "Conduite Sous Influence",
+      "description": "Conduite en état d'ivresse ou sous influence de drogues",
+      "fineAmount": "2 000 000 MGA"
+    },
+    "specificInfractions": {
+      "title": "Infractions-spécifiques",
+      "description": "Transport de passagers au-delà de la capacité autorisée",
+      "fineAmount": "20 000 MGA"
+    },
+    "vehicleRelatedInfractions": {
+      "title": "Infractions liées au véhicule",
+      "description": "Non-respect des normes de pollution",
+      "fineAmount": "30 000 MGA"
+    }
+  },
+  "statistiques": {
+    "doughnutChartLabel": "Schéma Doughnut",
+    "doughnutChartDescription": "Le graphique en doughnut fournit une vue circulaire de la répartition des différentes catégories au sein d'un ensemble de données. Chaque segment représente une proportion de l'ensemble, ce qui permet de visualiser facilement la distribution relative des données.",
+    "doughnutChartInterpretation": "L'interprétation des segments vous permet de comprendre quelles catégories sont les plus dominantes et lesquelles sont moins significatives. Par exemple, la couleur bleue domine avec 19 unités, tandis que la couleur pourpre est la moins représentée avec seulement 2 unités.",
+    "doughnutChartUsage": "Utilisez ce graphique pour obtenir une vue d'ensemble rapide et intuitive de la répartition des données dans votre ensemble.",
+    "cardLabel": "Card",
+    "lineChartLabel": "Courbe descriptive"
+  },
+  "textComponent": {
+    "title": "Infractions Routières",
+    "paragraph1": "Les infractions routières sont des comportements contraires au code de la route, tels que le non-respect des limitations de vitesse, la conduite en état d'ivresse, le non-port de la ceinture de sécurité, et bien d'autres. Ces infractions peuvent entraîner des sanctions allant de l'amende à la suspension du permis de conduire.",
+    "paragraph2": "En particulier, le non-respect des limitations de vitesse est l'une des principales causes d'accidents de la route. Les conducteurs qui dépassent les limites de vitesse mettent non seulement leur propre vie en danger, mais aussi celle des autres usagers de la route."
+  },
+  "card": {
+    "step1": {
+      "title": "Constatation de l'Infraction",
+      "description": "La première étape consiste à constater l'infraction routière par un agent de la circulation ou un radar automatique.",
+      "duration": "10S",
+      "difficulty": "Facile",
+      "cost": "Gratuit"
+    },
+    "step2": {
+      "title": "Émission de l'Amende",
+      "description": "Une amende est émise et envoyée au contrevenant, précisant les détails de l'infraction et les sanctions applicables.",
+      "duration": "5M",
+      "difficulty": "Moyenne",
+      "cost": "Varie"
+    },
+    "step3": {
+      "title": "Paiement de l'Amende",
+      "description": "Le contrevenant doit payer l'amende dans le délai imparti pour éviter des sanctions supplémentaires.",
+      "duration": "10M",
+      "difficulty": "Facile",
+      "cost": "Varie"
+    },
+    "step4": {
+      "title": "Contestation de l'Amende",
+      "description": "Si le contrevenant souhaite contester l'amende, il peut soumettre une demande de contestation avec des preuves à l'appui.",
+      "duration": "1M",
+      "difficulty": "Difficile",
+      "cost": "Gratuit"
+    },
+    "step5": {
+      "title": "Jugement",
+      "description": "En cas de contestation, l'affaire est portée devant un tribunal qui décide de la validité de l'amende.",
+      "duration": "Varie",
+      "difficulty": "Très difficile",
+      "cost": "Varie"
+    }
+  },
+  "signalement": {
+    "agents": "Agents",
+    "conducteurs": "Conducteurs",
+    "vehicules": "Véhicules",
+    "violations": "Violations"
+  },
+  "agents" : {
+      "numéro": "Numéro",
+      "nom_agent": "Nom de l'agent",
+      "grade": "Grade",
+      "soumettre": "Soumettre",
+      "mettre_a_jour": "Mettre à jour",
+      "ajout_en_cours": "Ajout en cours...",
+      "mise_a_jour_en_cours": "Mise à jour en cours...",
+      "suppression_en_cours": "Suppression en cours...",
+      "erreur_ajout": "Erreur lors de l'ajout",
+      "erreur_mise_a_jour": "Erreur lors de la mise à jour",
+      "erreur_suppression": "Erreur lors de la suppression",
+      "succès_ajout": "Agent ajouté avec succès",
+      "succès_mise_a_jour": "Agent mis à jour avec succès",
+      "succès_suppression": "Agent supprimé avec succès",
+      "erreur_chargement": "Erreur de chargement",
+      "chargement" : "Chargement des données . . ."
+    },
+    "deconnexion" : "Se déconnecter"
+  
+}

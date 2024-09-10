@@ -1,0 +1,88 @@
+/* src/components/Statistiques.css */
+
+.statistiques-container {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 6rem;
+}
+
+.graphs-and-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px; /* Ajustez la largeur totale du conteneur si nécessaire */
+}
+
+.minicards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px; /* Espace entre les minicards et le graphique en ligne */
+}
+
+.minicards-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.minicard {
+    width: 150px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.minicard h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.minicard p {
+    margin: 5px 0 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ac009d;
+}
+
+.line-chart {
+    width: 800px;
+    max-width: 900px; 
+    height: 400px;
+    margin-top: 20px;
+}
+
+.doughnut-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.doughnut-chart {
+    width: 450px; 
+    height: 500px;
+    margin-bottom: 20px;
+}
+
+/* src/components/Statistiques.css */
+
+.doughnut-description {
+    text-align: center;
+    font-size: 12px;
+    color: #333;
+    margin-top: 10px;
+    max-width: 500px;
+}
+

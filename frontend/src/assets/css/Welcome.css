@@ -1,0 +1,135 @@
+/* Styles pour le SVG */
+.custom-shape-divider-top-1721899546 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1721899546 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 237px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-top-1721899546 .shape-fill {
+    fill: #a200ff;
+}
+
+
+/* Conteneur principal pour centrer le contenu */
+.Welcome-Page{
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    background-color: #BD10E005;
+    text-align: left;
+}
+
+/* Conteneur de texte */
+.Welcome-Page .text-welcome-container {
+    position: relative;
+    width: 50%;
+    margin-left: 5%; /* Ajuste la marge gauche pour déplacer légèrement vers la gauche */
+    margin-top: 12%; /* Ajuste la marge supérieure pour déplacer légèrement vers le bas */
+    z-index: 1; /* Assurez-vous que le texte est devant le SVG */
+}
+
+/* Style pour le titre principal */
+.text-welcome-container h1 {
+    font-size: 4rem;
+    margin: 0;
+    color: #5907f3;
+    font-weight: 250;
+    font-family: "Calibri";
+}
+.text-container{
+    position: relative;
+    width: 50%;
+    margin-left: 5%; /* Ajuste la marge gauche pour déplacer légèrement vers la gauche */
+    margin-top: 12%; /* Ajuste la marge supérieure pour déplacer légèrement vers le bas */
+    z-index: 1; /* Assurez-vous que le texte est devant le SVG */
+}
+/* Style pour le sous-titre */
+.text-welcome-container h2 {
+    font-size: 1em;
+    margin: 10px 0 0 0;
+    color: #5907f3;
+    font-weight: 500;
+    font-family: "Calibri";
+}
+/* Button */
+.start-button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: #5907f3;
+    background: #fff;
+    border: 2px solid #5907f3;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: "Calibri";
+}
+
+.start-button:hover {
+    background: linear-gradient(45deg, #bd10e0, #5907f3);
+    border : none;
+    color : #fff
+}
+.image-container {
+    position: absolute;
+    top: 20%; /* Ajuste la position verticale */
+    right: -55%; /* Aligne à droite */
+    max-width: 40%; /* Ajuste la largeur maximum de l'image */
+    z-index: 1; /* Assurez-vous que l'image est devant le SVG */
+}
+.welcome-image {
+    width: 100%; /* Ajuster la largeur de l'image */
+    height: auto; /* Garantit que l'image reste proportionnelle */
+    display: block;
+    animation: animate 1s infinite ease alternate;
+}
+
+@keyframes animate {
+    to{
+      transform: translateY(20px);
+    }
+  }
+
+/* Media queries pour rendre le texte responsive */
+@media screen and (max-width: 768px) {
+    .text-container h1 {
+        font-size: 3rem;
+    }
+    .text-container h2 {
+        font-size: 1.1em;
+    }
+    .start-button {
+        font-size: 1rem;
+    }
+    .image-container {
+        max-width: 50%; /* Ajuster la largeur maximum de l'image pour les écrans plus petits */
+        right: 3%; /* Aligner légèrement plus à droite */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .text-container h1 {
+        font-size: 2rem;
+    }
+    .text-container h2 {
+        font-size: 1em;
+    }
+    .start-button {
+        font-size: 0.8em;
+    }
+    .image-container {
+        max-width: 60%; /* Ajuster la largeur maximum de l'image pour les écrans très petits */
+        right: 2%; /* Aligner légèrement plus à droite */
+    }
+}

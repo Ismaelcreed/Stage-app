@@ -1,0 +1,115 @@
+{
+  "home": "Trano",
+  "report": "Tatitra",
+  "statistics": "Statistika",
+  "account": "Kaonty",
+  "language": "Fiteny",
+  "infraction": {
+    "speeding": {
+      "title": "Fahazoan-dàlana mihoatra ny hafainganam-pandeha",
+      "description": "Fahazoan-dàlana mihoatra ny hafainganam-pandeha",
+      "fineAmount": "600 000 MGA"
+    },
+    "illegalParking": {
+      "title": "Fipetrahana tsy ara-dalàna",
+      "description": "Fipetrahana amin'ny faritra voarara",
+      "fineAmount": "300 000 MGA"
+    },
+    "signalViolation": {
+      "title": "Tsy fanarahana ny famantarana",
+      "description": "Tsy fanarahana ny famantarana ny fiara",
+      "fineAmount": "400 000 MGA"
+    },
+    "drivingUnderInfluence": {
+      "title": "Fidorohana",
+      "description": "Fandehanana eo ambanin'ny fiantraikan'ny zava-mahadomelina",
+      "fineAmount": "2 000 000 MGA"
+    },
+    "specificInfractions": {
+      "title": "Fanafintohina manokana",
+      "description": "Fitondrana mpandeha mihoatra ny fahaiza-manao",
+      "fineAmount": "20 000 MGA"
+    },
+    "vehicleRelatedInfractions": {
+      "title": "Fanafintohina mifandray amin'ny fiara",
+      "description": "Tsy fanarahana ny fenitry ny loto",
+      "fineAmount": "30 000 MGA"
+    }
+  },
+  "statistiques": {
+    "doughnutChartLabel": "Sary Doughnut",
+    "doughnutChartDescription": "Ny sary doughnut dia manome fomba fijery boribory momba ny fizarana ny sokajy samihafa ao amin'ny angona iray. Ny tsirairay segment dia maneho ny fizarana amin'ny ankapobeny, izay ahafahanao manara-maso ny fizarana manokana ny angona.",
+    "doughnutChartInterpretation": "Ny fanazavana momba ny segment dia ahafahanao mahazo izay sokajy no tena manan-danja sy ny sokajy tsy dia misy dikany. Ohatra, ny lokon'ny manga dia mitana ny lanja miaraka amin'ny 19 ny singa, raha toa kosa ny lokon'ny volon'ondry dia manana ny lanjany ambany indrindra amin'ny 2 ny singa.",
+    "doughnutChartUsage": "Ampiasao io sary io mba hahazoana fomba fijery haingana sy intuitive momba ny fizarana ny angona ao amin'ny angon-drakitrao.",
+    "cardLabel": "Karta",
+    "lineChartLabel": "Kurve Famaritana"
+  },
+  "textComponent": {
+    "title": "Fangatahana amin'ny Lalàna",
+    "paragraph1": "Ny fangatahana amin'ny lalàna dia fitondran-tena manohitra ny lalàna momba ny lalana, toy ny tsy fanajana ny fetran'ny hafainganana, ny fitondrana amin'ny toe-javatra misy alikaola, ny tsy fanaovana ny fehikibo fiarovana, sy ny maro hafa. Ireo fangatahana ireo dia mety hiteraka sazy amin'ny amende hatramin'ny fandroahana ny fahazoan-dàlana mitondra fiara.",
+    "paragraph2": "Amin'ny ankapobeny, ny tsy fanajana ny fetran'ny hafainganana dia iray amin'ireo antony lehibe mahatonga ny lozam-pifamoivoizana. Ireo mpitondra fiara izay mandalo ny fetra hafainganam-pandeha dia tsy vitan'ny hoe manome loza ho azy ireo ihany, fa ho an'ny mpandeha fiara hafa koa."
+  },
+  "card": {
+    "step1": {
+      "title": "Fanaraha-maso ny Fikorontanana",
+      "description": "Ny dingana voalohany dia ny fanaraha-maso ny fikorontanana amin'ny lalana .",
+      "duration": "10S",
+      "difficulty": "Tsotra",
+      "cost": "Maimaim-poana"
+    },
+    "step2": {
+      "title": "Famoahana ny Sazy",
+      "description": "Ny sazy dia avoaka sy alefa amin'ny olona tsy manaja ny lalàna, miaraka amin'ny antsipirian'ny fikorontanana sy ny sazy mety ho hita.",
+      "duration": "5M",
+      "difficulty": "Salantsalany",
+      "cost": "Miovaova"
+    },
+    "step3": {
+      "title": "Fandoavana ny Sazy",
+      "description": "Ny olona tsy manaja ny lalàna dia tsy maintsy mandoa ny sazy amin'ny fotoana voatondro mba hisorohana ny sazy fanampiny.",
+      "duration": "10M",
+      "difficulty": "Tsotra",
+      "cost": "Miovaova"
+    },
+    "step4": {
+      "title": "Fandavana ny Sazy",
+      "description": "Raha te-hitsikera ny sazy, dia afaka mandefa fangatahana fandavana miaraka amin'ny porofo.",
+      "duration": "1M",
+      "difficulty": "Sarotra",
+      "cost": "Maimaim-poana"
+    },
+    "step5": {
+      "title": "Fitsarana",
+      "description": "Amin'ny tranga fandavana, ny raharaha dia alefa any amin'ny fitsarana izay manapa-kevitra momba ny maha-marina ny sazy.",
+      "duration": "Miovaova",
+      "difficulty": "Tena sarotra",
+      "cost": "Miovaova"
+    }
+  },
+  "signalement": {
+    "agents": "Polisy",
+    "conducteurs": "Mpamily",
+    "vehicules": "Fiara",
+    "violations": "Fikorontanana"
+  },
+  "agents" : {
+    
+      "numéro": "Laharana",
+      "nom_agent": "Anaran'ny mpiasa",
+      "grade": "Loharanom-bola",
+      "soumettre": "Alefaso",
+      "mettre_a_jour": "Havaozy",
+      "ajout_en_cours": "Mampitombo...",
+      "mise_a_jour_en_cours": "Mitsangana...",
+      "suppression_en_cours": "Fanafoanana...",
+      "erreur_ajout": "Hadisoana tamin'ny fanampiana",
+      "erreur_mise_a_jour": "Hadisoana tamin'ny fanavaozana",
+      "erreur_suppression": "Hadisoana tamin'ny fanafoanana",
+      "succès_ajout": "Mpiasa nampiana soa aman-tsara",
+      "succès_mise_a_jour": "Mpiasa havaozina soa aman-tsara",
+      "succès_suppression": "Mpiasa nesorina soa aman-tsara",
+      "erreur_chargement": "Hadisoana tamin'ny famoahana",
+      "chargement" : "Miandry kely . . ."
+  },
+  "deconnexion" : "Hivoaka"
+}

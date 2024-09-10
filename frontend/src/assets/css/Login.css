@@ -1,0 +1,151 @@
+/* Conteneur principal pour la mise en page horizontale */
+.main-container {
+  display: flex;
+  justify-content: space-between; /* Séparer les éléments avec de l'espace entre eux */
+  align-items: center; /* Centrer verticalement les éléments */
+  min-height: 90vh; /* Assurer que le conteneur prend toute la hauteur de la fenêtre */
+  background-color: #ffffff; /* Gris clair pour le fond */
+  padding: 20px; /* Ajouter un peu de padding autour du conteneur */
+}
+
+.left-image {
+  flex: 1; /* Prend une proportion de l'espace disponible */
+  display: flex;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.left-image img {
+  max-width: 100%; 
+  width: 400px;
+  height: auto;
+}
+
+.container-login {
+  flex: 1; /* Prend une proportion de l'espace disponible */
+  margin: 0 auto;
+  padding: 30px;
+  max-width: 430px;
+  width: 100%;
+  background-color: #fff; /* Fond blanc pour le conteneur de connexion */
+  border-radius: 12px; /* Arrondir les coins du conteneur */
+  box-shadow: 0 4px 8px rgba(0, 0.3, 0.4, 0.4); /* Ajouter une ombre légère */
+  box-sizing: border-box;
+  position: relative;
+  margin-right: 40px;
+}
+
+/* Style pour le titre du formulaire */
+.title-login {
+  display: flex;
+  justify-content: center; /* Centrer horizontalement */
+  align-items: center; /* Centrer verticalement */
+  margin-top: -5rem;
+}
+
+.title-login img {
+  width: 8rem;
+}
+
+/* Autres styles inchangés */
+.link {
+  font-family: 'Calibri';
+  text-align: center;
+  padding: 6px;
+}
+
+.link p {
+  text-decoration: none;
+}
+
+.formContent {
+  margin: 0;
+  padding: 0;
+}
+
+.formContent .inputBox {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.formContent .inputBox input {
+  width: 100%;
+  min-width: 20rem;
+  padding: 5px 0; /* Agrandir le padding vertical */
+  font-size: 16px;
+  color: #5907f3;
+  font-weight: 400;
+  margin-bottom: 30px;
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid #8f8d8d;
+  outline: none;
+}
+
+
+
+.formContent .inputBox .toggle-visibility {
+  position: absolute;
+  top: 65%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #8f8d8d;
+}
+
+.formContent button {
+  margin-left: 0;
+  display: block;
+  margin: 0 auto 20px;
+  min-width: 150px; /* Agrandir légèrement la largeur du bouton */
+  background: #5907f3;
+  color: #fff;
+  padding: 15px; /* Agrandir le padding */
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: "Calibri";
+}
+
+.formContent button:hover {
+  background-color: #fff;
+  color: #5907f3;
+  cursor: pointer;
+  border: 1px solid #5907f3;
+}
+
+.container-login .and {
+  font-family: 'Calibri';
+  font-size: 20px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.container-login .google {
+  margin-top: 15px;
+}
+
+.google-button {
+  display: flex;
+  align-items: center; /* Centrer verticalement */
+  justify-content: center; /* Centrer horizontalement */
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 16px;
+  padding: 15px; /* Agrandir le padding */
+  cursor: pointer;
+}
+
+.google-button img {
+  width: 25px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.google-button span {
+  font-size: 15px;
+  font-family: 'Calibri';
+  margin-left: 0.5rem; /* Ajuster légèrement la position du texte vers la gauche */
+  font-weight: 1000;
+}
