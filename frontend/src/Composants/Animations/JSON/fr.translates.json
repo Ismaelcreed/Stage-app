@@ -1,6 +1,6 @@
 {
   "home": "Accueil",
-  "report": "Signalement",
+  "report": "Dashboard",
   "statistics": "Statistiques",
   "account": "Compte",
   "language": "Langue",
@@ -42,7 +42,29 @@
     "doughnutChartInterpretation": "L'interprétation des segments vous permet de comprendre quelles catégories sont les plus dominantes et lesquelles sont moins significatives. Par exemple, la couleur bleue domine avec 19 unités, tandis que la couleur pourpre est la moins représentée avec seulement 2 unités.",
     "doughnutChartUsage": "Utilisez ce graphique pour obtenir une vue d'ensemble rapide et intuitive de la répartition des données dans votre ensemble.",
     "cardLabel": "Card",
-    "lineChartLabel": "Courbe descriptive"
+    "lineChartLabel": "Courbe descriptive des infractions mensuelles",
+    "excèsDeVitesse": "Excès de Vitesse",
+    "stationnementIllegal": "Stationnement Illégal",
+    "nonRespectDesSignaux": "Non-respect des Signaux",
+    "conduiteSousInfluence": "Conduite Sous Influence",
+    "infractionsSpecifiques": "Infractions Spécifiques",
+    "infractionsLieesAuVehicule": "Infractions Liées au Véhicule",
+    "agents" : "Agents",
+    "conducteurs" : "Conducteurs",
+    "vehicules" : "Véhicules",
+    "infratcions" : "Infractions",
+    "janvier": "Janvier",
+    "fevrier": "Février",
+    "mars": "Mars",
+    "avril": "Avril",
+    "mai": "Mai",
+    "juin": "Juin",
+    "juillet": "Juillet",
+    "aout": "Août",
+    "septembre": "Septembre",
+    "octobre": "Octobre",
+    "novembre": "Novembre",
+    "decembre": "Décembre"
   },
   "textComponent": {
     "title": "Infractions Routières",
@@ -87,10 +109,10 @@
     }
   },
   "signalement": {
-    "agents": "Agents",
-    "conducteurs": "Conducteurs",
-    "vehicules": "Véhicules",
-    "violations": "Violations"
+    "agents": " Agents",
+    "conducteurs": " Conducteurs",
+    "vehicules": " Véhicules",
+    "violations": " Infractions"
   },
   "agents" : {
       "numéro": "Numéro",

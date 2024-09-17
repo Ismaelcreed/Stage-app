@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Select, Table, Row, Col, Divider, Button } from 'antd';
+import { Form, Input, Select, Table, Row, Col, Divider } from 'antd';
 import "../../assets/css/Agents.css";
 import { motion } from 'framer-motion';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
@@ -147,7 +147,9 @@ const Agents = () => {
     Loading.hourglass(t('agents.chargement'));
     return null;
   }
-
+  else {
+    Loading.remove();
+  }
   if (error) {
     Report.failure(t('agents.erreur_chargement'), t('agents.erreur_chargement'), 'OK');
     return null;
@@ -165,11 +167,13 @@ const Agents = () => {
       title: t('agents.nom_agent'),
       dataIndex: 'police_name',
       key: 'police_name',
+      width : 100
     },
     {
       title: t('agents.grade'),
       dataIndex: 'rank',
       key: 'rank',
+      width : 100
     },
     {
       title: 'Actions',
@@ -180,6 +184,7 @@ const Agents = () => {
           <DeleteTwoTone onClick={() => handleDeleteAgent(record.badge_number)} />
         </span>
       ),
+      width : 50
     },
   ];
 
@@ -238,7 +243,11 @@ const Agents = () => {
         <Divider type="vertical" className="divider" />
       </Col>
       <Col span={11}>
-        <img onClick={exportToExcel} src={excel} style={{ margin : 0,marginBottom: 10 }} />
+        
+        <div className="tooltip"><img onClick={exportToExcel} src={excel} style={{ margin : 0,marginBottom: 10 }} />
+          <span className="tooltiptext">Exporter en excel</span>
+        </div>
+        <Divider/>
         <Table dataSource={data.polices} columns={columns} rowKey={(record) => record.badge_number} pagination={{ pageSize: 5 }} />
       </Col>
     </Row>

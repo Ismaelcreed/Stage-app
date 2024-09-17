@@ -17,7 +17,7 @@
 }
 
 .custom-shape-divider-top-1721899546 .shape-fill {
-    fill: #a200ff;
+    fill: #3a9188;
 }
 
 
@@ -45,7 +45,7 @@
 .text-welcome-container h1 {
     font-size: 4rem;
     margin: 0;
-    color: #5907f3;
+    color: #3a9188;
     font-weight: 250;
     font-family: "Calibri";
 }
@@ -58,34 +58,34 @@
 }
 /* Style pour le sous-titre */
 .text-welcome-container h2 {
-    font-size: 1em;
+    font-size: 1rem;
     margin: 10px 0 0 0;
-    color: #5907f3;
+    color: #3a9188;
     font-weight: 500;
     font-family: "Calibri";
 }
 /* Button */
 .start-button {
     padding: 10px 20px;
-    font-size: 1.2em;
-    color: #5907f3;
+    font-size: 20px;
+    color: #3a9188;
     background: #fff;
-    border: 2px solid #5907f3;
-    border-radius: 20px;
+    border: 1.5px solid #3a9188;
+    border-radius: 10px;
     cursor: pointer;
     font-family: "Calibri";
 }
 
 .start-button:hover {
-    background: linear-gradient(45deg, #bd10e0, #5907f3);
+    background: linear-gradient(45deg, #52c9bd, #09635a);
     border : none;
     color : #fff
 }
 .image-container {
     position: absolute;
     top: 20%; /* Ajuste la position verticale */
-    right: -55%; /* Aligne à droite */
-    max-width: 40%; /* Ajuste la largeur maximum de l'image */
+    right: -58%; /* Aligne à droite */
+    max-width: 25%; /* Ajuste la largeur maximum de l'image */
     z-index: 1; /* Assurez-vous que l'image est devant le SVG */
 }
 .welcome-image {

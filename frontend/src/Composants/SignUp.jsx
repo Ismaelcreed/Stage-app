@@ -3,11 +3,11 @@ import { useMutation, gql } from '@apollo/client';
 import "../assets/css/Login.css";
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/Logo_agir.png";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Toaster, toast } from 'sonner';
 import { Spin } from "antd";
-import gend from "../assets/images/login.gif"
+import gend from "../assets/images/Logo1.png";
 
 const SIGN_UP_MUTATION = gql`
  mutation Signup($username: String!, $email: String!, $password: String!) {
@@ -61,15 +61,12 @@ const SignUp = () => {
         <>
             <Toaster />
             <div className="main-container">
-                <div className="left-image">
-                    <img src={gend} alt="Illustration" />
-                </div>
                 <motion.div
                     className="container-login"
-                    initial={{ width: 0 }}
-                    animate={{ width: "100%" }}
-                    exit={{ x: window.innerWidth }}
-                    transition={{ duration: 1.2, ease: 'easeOut', delay: 0.3 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4, ease: 'easeOut', delay: 0.4 }}
                 >
                     <p className='title-login'><img src={logo} alt="logo" /></p>
                     <div className="formContent">
@@ -116,6 +113,15 @@ const SignUp = () => {
                     </div>
 
                 </motion.div>
+                <div className="top-content">
+          <div className="top-left">
+            <img src={gend} alt="Ministère de l'intérieur et de la décentralisation Madagascar" className="top-img" />
+          </div>
+          <div className="top-right">
+          <h1 className="top-text"><strong>AGIR </strong>( <strong>A</strong>pplication de <strong>G</strong>estion des <strong>I</strong>nfractions <strong>R</strong>outières )</h1>
+            <p className="top-copyright">© {new Date().getFullYear()} Ministère de l'intérieur et de la décentralisation Madagascar. Tous droits réservés.</p>
+          </div>
+        </div>
             </div>
         </>
     );

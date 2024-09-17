@@ -33,4 +33,7 @@ export class VehiclesService {
   async delete(id_vehicles: string): Promise<Vehicles | null> {
     return this.vehiclesModel.findOneAndDelete({ id_vehicles }).populate('owner_id').exec();
   }
+  async count(): Promise<number> {
+    return this.vehiclesModel.countDocuments().exec();
+  }
 }

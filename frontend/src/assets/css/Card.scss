@@ -30,7 +30,7 @@ $infraction5: #4facff;
 }
 
 .clash-card {
-  background: #a200ff;
+  background: #3a9188;
   width: 400px;
   display: inline-block;
   margin: 0 auto;
@@ -59,23 +59,23 @@ $infraction5: #4facff;
 }
 
 .clash-card__level--infraction1 {
-  color: #5907f3;
+  color: #3a9188;
 }
 
 .clash-card__level--infraction2 {
-  color:#5907f3;
+  color:#3a9188;
 }
 
 .clash-card__level--infraction3 {
-  color:#5907f3;
+  color:#3a9188;
 }
 
 .clash-card__level--infraction4 {
-  color: #5907f3;
+  color: #3a9188;
 }
 
 .clash-card__level--infraction5 {
-  color: #5907f3;
+  color: #3a9188;
 }
 .clash-card__level clash-card__level--infraction{
   color: #ffffff;
@@ -94,42 +94,42 @@ $infraction5: #4facff;
 }
 
 .clash-card__unit-stats--infraction1 {
-  background: #5907f3;
+  background: #3a9188;
 
   .one-third {
-    border-right: 1px solid #5907f3;;
+    border-right: 1px solid #3a9188;
   }
 }
 
 .clash-card__unit-stats--infraction2 {
-  background: #5907f3;
+  background: #3a9188;
 
   .one-third {
-    border-right: 1px solid #5907f3
+    border-right: 1px solid #3a9188
   }
 }
 
 .clash-card__unit-stats--infraction3 {
-  background: #5907f3;
+  background: #3a9188;
 
   .one-third {
-    border-right: 1px solid darken(#5907f3, 8%);
+    border-right: 1px solid darken(#3a9188, 8%);
   }
 }
 
 .clash-card__unit-stats--infraction4 {
-  background: #5907f3;
+  background: #3a9188;
 
   .one-third {
-    border-right: 1px solid darken(#5907f3, 6%);
+    border-right: 1px solid darken(#3a9188, 6%);
   }
 }
 
 .clash-card__unit-stats--infraction5 {
-  background: #5907f3;
+  background: #3a9188;
 
   .one-third {
-    border-right: 1px solid darken(#5907f3, 6%);
+    border-right: 1px solid darken(#3a9188, 6%);
   }
 }
   
@@ -177,18 +177,18 @@ $infraction5: #4facff;
   font-size: 0;
   content: " ";
   clear: both;
-  color: #5907f3;
+  color: #3a9188;
   height: 0;
 }
 
 .slick-prev {
   left: 100px;
   z-index: 999;
-  color: #5907f3;
+  color: #3a9188;
 }
 
 .slick-next {
   right: 100px;
   z-index: 999;
-  color: #5907f3;
+  color: #3a9188;
 }

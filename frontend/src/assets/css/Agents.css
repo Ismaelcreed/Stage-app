@@ -1,6 +1,6 @@
 .container {
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #3a9188;
     box-shadow: 0 10px 25px rgba(39, 39, 39, 0.2);
     border-radius: 10px;
     max-width: 1200px;
@@ -13,7 +13,7 @@
     margin-bottom: 20px;
 }
 .custom-button {
-    background-color: #a200ff; /* Couleur de fond personnalisée */
+    background-color: #3a9188; /* Couleur de fond personnalisée */
     border: none; /* Couleur de bordure personnalisée */
     font-size: 16px;
     border-radius: 10px;
@@ -25,16 +25,16 @@
 .ant-btn {
     display: flex;
     align-items: center;
-    background-color: #1890ff;
-    border-color: #1890ff;
+    background-color: #3a9188;
+    border-color: #3a9188;
     font-size: 16px;
     height: 40px;
     padding: 0 20px;
 }
 
 .ant-btn:hover, .ant-btn:focus {
-    background-color: #40a9ff;
-    border-color: #40a9ff;
+    background-color: #3a9188;
+    border-color: #3a9188;
 }
 
 .ant-table {
@@ -55,10 +55,55 @@
 
 .divider {
     height: auto;
-    background-color: #d9d9d9;
+    background-color: #3a9188;
     width: 2px;
 }
 
 .ant-form-item-label > label {
     font-size: 16px;
 }
+.custom-button {
+    background-color: #3a9188; /* Couleur de fond personnalisée */
+    border: none; /* Couleur de bordure personnalisée */
+    font-size: 13px;
+    border-radius: 5px;
+    height: 40px;
+    padding: 0 20px;
+    color: #fff;
+    margin-left: 870px
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #3a9188;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 110%;
+    
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #3a9188 transparent transparent;
+    
+  }
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }

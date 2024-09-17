@@ -73,6 +73,11 @@ const MapComponent = () => {
     const distance = R * c;
     return distance.toFixed(2);
   };
+  const mapContainerStyle = {
+    height: "100vh",
+    width: "100%"
+  };
+  const API_KEY = 'YOUR_GOOGLE_MAPS_API_KEY';
 
   return (
     <div className="map-container">
@@ -83,17 +88,10 @@ const MapComponent = () => {
         whenCreated={(mapInstance) => setMap(mapInstance)}
       >
         <LayersControl>
-          <LayersControl.BaseLayer name="OpenStreetMap" checked>
+          <LayersControl.BaseLayer name="Carte leaflet" checked>
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            />
-          </LayersControl.BaseLayer>
-          <LayersControl.BaseLayer name="Satellite">
-            <TileLayer
-              url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=YOUR_MAPBOX_ACCESS_TOKEN"
-              attribution='&copy; <a href="https://www.mapbox.com/">Mapbox</a> contributors'
-              id="mapbox/satellite-v9"
             />
           </LayersControl.BaseLayer>
         </LayersControl>

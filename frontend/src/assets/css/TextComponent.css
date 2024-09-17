@@ -1,6 +1,6 @@
 /* TextComponent.css */
 .text-container {
-    color: #5907f3;
+    color: white;
     padding: 30px;
     max-width: 400px;
     position: absolute; /* Fixed position to stay on the left */
@@ -22,14 +22,14 @@
     margin: 0;
 }
 .writer-container {
-    font-size: 50px;
-    font-family: "Bigelow Rules";
-    font-weight: 500;
-    color: #5907f3;
-    text-align: left;
-    margin: 20px 0;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #2c2c2c;
+    text-align: center;
+    margin-left : 950px;
+    width : 200px;
+    margin-top : 50px;
     height: auto;
-    width: auto;
-    overflow: hidden;
 }
 /*  */

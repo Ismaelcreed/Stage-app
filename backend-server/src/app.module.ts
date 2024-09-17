@@ -16,6 +16,7 @@ import { JwtMiddleware } from './user/jwt.middleware';
 import { JwtService } from '@nestjs/jwt';
 import { GraphQLContext } from './user/resolver/graphql.context';
 import { Request } from 'express';
+import { StatsModule } from './stats.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { Request } from 'express';
     ViolationsModule,
     PayementsModule,
     UploadModule,
+    StatsModule
   ],
   controllers: [AppController],
   providers: [AppService , JwtService],

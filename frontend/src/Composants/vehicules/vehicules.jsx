@@ -219,7 +219,9 @@ const Vehicules = () => {
     Loading.hourglass('Chargement des données  . . .');
     return null;
   }
-  
+  else {
+    Loading.remove();
+  }
   if (error || driversError) {
     Report.failure("Erreur de chargement", "Vérifiez votre connexion", "OK");
     return null;
@@ -301,7 +303,10 @@ const Vehicules = () => {
     >
       <Row gutter={32}>
         <Col span={24}>
-        <img onClick={exportToExcel} src={excel} style={{ margin : 0,marginBottom: 15 }} />
+        <div className="tooltip"><img onClick={exportToExcel} src={excel} style={{ margin : 0,marginBottom: 10 }} />
+          <span className="tooltiptext">Exporter en excel</span>
+        </div>
+        <br />
           <button className='custom-button' onClick={() => { setIsEditing(false); setCurrentVehicle(null); setIsModalVisible(true); }}>
             Ajouter un Véhicule
           </button>
@@ -310,11 +315,11 @@ const Vehicules = () => {
         </Col>
       </Row>
       <Modal
-        title={isEditing ? 'Modifier le Véhicule' : 'Ajouter un Véhicule'}
+        title={isEditing ? '<p className="custom-button">Modifier le Véhicule</p>' : 'Ajouter un Véhicule'}
         open={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
         footer={[
-          <button key="submit" className='custom-button' onClick={isEditing ? handleUpdateVehicle : handleAddVehicle}>
+          <button key="submit" className='submit-button' onClick={isEditing ? handleUpdateVehicle : handleAddVehicle}>
             {isEditing ? 'Mettre à jour' : 'Soumettre'}
           </button>,
         ]}

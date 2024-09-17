@@ -1,11 +1,14 @@
-// CameraScanner.js
 import React, { useRef, useState, useCallback } from 'react';
 import Webcam from 'react-webcam';
-import { Button, Modal, Image, Spin, notification, Upload, Checkbox } from 'antd';
-import { CameraTwoTone, FileImageTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
+import { Button, Modal, Image, notification, Upload, Checkbox } from 'antd';
 import Tesseract from 'tesseract.js';
 import Camera from "../assets/images/cam.png";
-import File from "../assets/images/fil.png"
+
+import { hatch } from 'ldrs';
+
+hatch.register();
+
+// Default values shown
 
 const CameraScanner = ({ visible, onClose, onCapture }) => {
   const webcamRef = useRef(null);
@@ -57,16 +60,26 @@ const CameraScanner = ({ visible, onClose, onCapture }) => {
     setOcrResult('');
   }, [webcamRef]);
 
+  // Enhance image for OCR
+  const enhanceImage = (img) => {
+    // Example of image enhancement (you can use libraries like `sharp` or `opencv.js`)
+    // For simplicity, we'll just return the image as is.
+    return img;
+  };
+
   // Perform OCR on the captured photo
   const scan = useCallback(() => {
     if (image) {
       setLoading(true);
 
+      const enhancedImage = enhanceImage(image);
+
       Tesseract.recognize(
-        image,
+        enhancedImage,
         'eng',
         {
-          logger: info => console.log(info)
+          logger: info => console.log(info),
+          // Add any OCR configuration here
         }
       ).then(({ data: { text } }) => {
         setOcrResult(text);
@@ -103,7 +116,8 @@ const CameraScanner = ({ visible, onClose, onCapture }) => {
         file,
         'eng',
         {
-          logger: info => console.log(info)
+          logger: info => console.log(info),
+          // Add any OCR configuration here
         }
       ).then(({ data: { text } }) => {
         setOcrResult(text);
@@ -183,24 +197,8 @@ const CameraScanner = ({ visible, onClose, onCapture }) => {
             <img
               src={Camera}
               onClick={capture}
-              style={{ width: '100%', marginBottom: '70px', fontSize: '16px' }}
+              style={{ width: '100%', marginBottom: '70px', fontSize: '16px', border: "1px solid #3a9188", padding: "50px", borderRadius: "50%" }}
             />
-             
-            <Upload
-              accept="image/*"
-              showUploadList={false}
-              beforeUpload={() => false} // Prevent auto-upload
-              customRequest={({ file, onSuccess }) => {
-                // Manually trigger file change
-                handleFileChange({ file: { originFileObj: file, status: 'done' } });
-                onSuccess();
-              }}
-            >
-              <img
-                src={File}
-                style={{ width: '100%', fontSize: '16px' }}
-              />
-            </Upload>
           </div>
         </div>
       </div>
@@ -212,8 +210,12 @@ const CameraScanner = ({ visible, onClose, onCapture }) => {
           style={{ marginTop: 10, display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
         />
       )}
-      {loading && <Spin style={{ marginTop: 20 }} />}
-      {fileLoading && <Spin style={{ marginTop: 20 }} />}
+      {loading && <l-hatch
+        size="25"
+        stroke="4"
+        speed="3.5" 
+        color="#3a9188"
+      ></l-hatch>}
       {ocrResult && (
         <div style={{ marginTop: 20 }}>
           <h3>Information du permis de conduire :</h3>

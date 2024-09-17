@@ -10,13 +10,10 @@
 .text-container {
     width: 45%;
     padding: 20px;
-    color: #b95fc5;
-    background: white;
+    background: #3a9188;
     box-shadow: 0 4px 8px rgba(0, 0.1, 0.1, 0.2);
     border-radius: 8px;
 }
-
-
 .map-container {
     width: 100%;
     height: 50vh;
@@ -30,7 +27,17 @@
     box-sizing: border-box;
     margin-top: 7rem;
 }
-
+.img-right {
+    margin-left: 920px;
+    position: relative;
+    width: 300px;   
+}
+.minint {
+    margin-bottom: 0;
+    height: auto;
+    display: block;
+    margin-top: 50px;
+}
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .top-container,

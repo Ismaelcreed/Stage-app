@@ -46,8 +46,11 @@ export class DriverService {
         .on('finish', resolve)
         .on('error', reject);
     });
-
+  
     // Retourner l'URL ou le chemin du fichier
     return `http://localhost:3000/uploads/${filename}`;
+  }
+  async count(): Promise<number> {
+    return this.driverModel.countDocuments().exec();
   }
 }

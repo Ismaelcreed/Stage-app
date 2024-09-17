@@ -7,7 +7,7 @@ const WriterComponent = () => {
     return (
         <div className="writer-container">
             <TypingEffect
-                text={["Payer les amendes par version numériques"]}
+                text={["MINISTERE DE L'INTERIEUR ET DE LA DECENTRALISATION DE MADAGASCAR"]}
                 speed={100}
                 eraseSpeed={50}
                 typingDelay={500}

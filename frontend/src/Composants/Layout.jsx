@@ -1,16 +1,16 @@
 import React from "react";
 import NavBar from "./NavBar";
 import { Outlet } from 'react-router-dom';
-import '../assets/css/Layout.css'; 
+import '../assets/css/Layout.css';
 
 
 const Layout = () => {
- 
+
   return (
     <div className="layout">
-      <NavBar />
+       <NavBar />
       <main className="main-content">
-        <Outlet /> 
+        <Outlet />
       </main>
     </div>
   );

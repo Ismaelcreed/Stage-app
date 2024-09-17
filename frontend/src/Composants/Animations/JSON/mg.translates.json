@@ -37,12 +37,34 @@
     }
   },
   "statistiques": {
-    "doughnutChartLabel": "Sary Doughnut",
-    "doughnutChartDescription": "Ny sary doughnut dia manome fomba fijery boribory momba ny fizarana ny sokajy samihafa ao amin'ny angona iray. Ny tsirairay segment dia maneho ny fizarana amin'ny ankapobeny, izay ahafahanao manara-maso ny fizarana manokana ny angona.",
+    "doughnutChartLabel": "Sary Donaty",
+    "doughnutChartDescription": "Ny sary donaty dia manome fomba fijery boribory momba ny fizarana ny sokajy samihafa ao amin'ny angona iray. Ny tsirairay segment dia maneho ny fizarana amin'ny ankapobeny, izay ahafahanao manara-maso ny fizarana manokana ny angona.",
     "doughnutChartInterpretation": "Ny fanazavana momba ny segment dia ahafahanao mahazo izay sokajy no tena manan-danja sy ny sokajy tsy dia misy dikany. Ohatra, ny lokon'ny manga dia mitana ny lanja miaraka amin'ny 19 ny singa, raha toa kosa ny lokon'ny volon'ondry dia manana ny lanjany ambany indrindra amin'ny 2 ny singa.",
     "doughnutChartUsage": "Ampiasao io sary io mba hahazoana fomba fijery haingana sy intuitive momba ny fizarana ny angona ao amin'ny angon-drakitrao.",
     "cardLabel": "Karta",
-    "lineChartLabel": "Kurve Famaritana"
+    "excèsDeVitesse": "Hafainganam-pandeha",
+    "stationnementIllegal": "Fipetrahana tsy ara-dalàna",
+    "nonRespectDesSignaux": "Tsy fanarahana ny famantarana",
+    "conduiteSousInfluence": "Zava-mahadomelina",
+    "infractionsSpecifiques": "Fandikan-dalàna manokana",
+    "infractionsLieesAuVehicule": "Mifandraika amin'ny fiara",
+    "lineChartLabel": "Fandikan-dalàna isam-bolana",
+    "agents" : "Polisy",
+    "conducteurs" : "Mpamily",
+    "vehicules" : "Fiara",
+    "infratcions" : "Fikorontanana",
+    "janvier": "Janoary",
+    "fevrier": "Febroary",
+    "mars": "Martsa",
+    "avril": "Aprily",
+    "mai": "Mey",
+    "juin": "Jona",
+    "juillet": "Jolay",
+    "aout": "Aogositra",
+    "septembre": "Septambra",
+    "octobre": "Oktobra",
+    "novembre": "Novambra",
+    "decembre": "Desambra"
   },
   "textComponent": {
     "title": "Fangatahana amin'ny Lalàna",
@@ -87,16 +109,16 @@
     }
   },
   "signalement": {
-    "agents": "Polisy",
-    "conducteurs": "Mpamily",
-    "vehicules": "Fiara",
-    "violations": "Fikorontanana"
+    "agents": " Polisy",
+    "conducteurs": " Mpamily",
+    "vehicules": " Fiara",
+    "violations": " Fikorontanana"
   },
   "agents" : {
     
       "numéro": "Laharana",
       "nom_agent": "Anaran'ny mpiasa",
-      "grade": "Loharanom-bola",
+      "grade": "Grady",
       "soumettre": "Alefaso",
       "mettre_a_jour": "Havaozy",
       "ajout_en_cours": "Mampitombo...",
@@ -111,5 +133,6 @@
       "erreur_chargement": "Hadisoana tamin'ny famoahana",
       "chargement" : "Miandry kely . . ."
   },
+
   "deconnexion" : "Hivoaka"
 }

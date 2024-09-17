@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Float } from '@nestjs/graphql';
 import { ViolationsService } from './violations.service';
 import { Violations } from './violations.schema';
 
@@ -22,28 +22,16 @@ export class ViolationsResolver {
     @Args('driver_id') driver_id: string,
     @Args('officer_id') officer_id: string,
     @Args('vehicle_id') vehicle_id: string,
-    @Args('violation_type') violation_type: string,
+    @Args({ name: 'violation_type', type: () => [String] }) violation_type: string[], 
     @Args('desc') desc: string,
     @Args('date') date: Date,
     @Args('localisation') localisation: string,
+    @Args('amende', { type: () => Float }) amende: number // Corrigé
   ): Promise<Violations> {
     const formattedDate = new Date(date);
 
-    const driver = await this.violationsService.findDriverById(driver_id);
-    const officer = await this.violationsService.findOfficerById(officer_id);
-    const vehicle = await this.violationsService.findVehicleById(vehicle_id);
-
-    if (!driver) {
-      throw new Error(`Driver with ID ${driver_id} not found`);
-    }
-    if (!officer) {
-      throw new Error(`Officer with ID ${officer_id} not found`);
-    }
-    if (!vehicle) {
-      throw new Error(`Vehicle with ID ${vehicle_id} not found`);
-    }
-
-    return this.violationsService.create({
+    // Create the violation with the provided data
+    const violation = await this.violationsService.create({
       id_violations,
       driver_id,
       officer_id,
@@ -52,7 +40,10 @@ export class ViolationsResolver {
       desc,
       date: formattedDate,
       localisation,
+      amende
     });
+
+    return violation;
   }
 
   @Mutation(() => Violations, { nullable: true })
@@ -61,29 +52,16 @@ export class ViolationsResolver {
     @Args('driver_id') driver_id: string,
     @Args('officer_id') officer_id: string,
     @Args('vehicle_id') vehicle_id: string,
-    @Args('violation_type') violation_type: string,
+    @Args({ name: 'violation_type', type: () => [String] }) violation_type: string[], 
     @Args('desc') desc: string,
-    @Args('date') date: string,
+    @Args('date') date: Date,
     @Args('localisation') localisation: string,
+    @Args('amende', { type: () => Float }) amende: number 
   ): Promise<Violations | null> {
     const formattedDate = new Date(date);
 
-  
-    const driver = await this.violationsService.findDriverById(driver_id);
-    const officer = await this.violationsService.findOfficerById(officer_id);
-    const vehicle = await this.violationsService.findVehicleById(vehicle_id);
-
-    if (!driver) {
-      throw new Error(`Driver with ID ${driver_id} not found`);
-    }
-    if (!officer) {
-      throw new Error(`Officer with ID ${officer_id} not found`);
-    }
-    if (!vehicle) {
-      throw new Error(`Vehicle with ID ${vehicle_id} not found`);
-    }
-
-    return this.violationsService.update(id_violations, {
+    // Update the violation with the provided data
+    const updatedViolation = await this.violationsService.update(id_violations, {
       id_violations,
       driver_id,
       officer_id,
@@ -92,7 +70,10 @@ export class ViolationsResolver {
       desc,
       date: formattedDate,
       localisation,
+      amende
     });
+
+    return updatedViolation;
   }
 
   @Mutation(() => Violations, { nullable: true })

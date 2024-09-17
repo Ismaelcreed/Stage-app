@@ -1,77 +1,54 @@
-import React, { useEffect } from 'react';
+import { Link, Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import "../assets/css/signal.css";
 import feather from 'feather-icons';
-import { Outlet, Link } from 'react-router-dom';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
-import { driver } from "driver.js";
-import "driver.js/dist/driver.css";
-import ico1 from "../assets/images/police.ico";
-import ico2 from "../assets/images/driver.ico";
-import ico3 from "../assets/images/car.ico";
-import ico4 from "../assets/images/violation.ico";
 
 const Signalement = () => {
     const { t } = useTranslation();
-
     useEffect(() => {
-        feather.replace();
         Loading.dots();
-        Loading.remove(1000);
-        const isIntroShown = sessionStorage.getItem('introShown');
-        
-        if (!isIntroShown) {
-            const driverInstance = driver({
-                showProgress: true,
-                steps: [
-                    {
-                        element: '.signal',
-                        popover: {
-                            title: 'Ceci est votre dashboard',
-                            description: 'Voici la section principale où vous pouvez gérer vos signalements.',
-                            position: 'bottom'
-                        }
-                    }
-                ],
-                onDestroyStarted: () => {
-                    sessionStorage.setItem('introShown', 'true');
-                }
-            });
-
-            driverInstance.drive();
-        }
+        Loading.remove(1000)
+        feather.replace();
     }, []);
 
     return (
-        <div className="contain">
-            <nav className="signal">
-                <ul className="signal__menu">
-                    <li className="signal__item">
-                        <Link to="agents" className="signal__link">
-                            <img src={ico1} alt="polices"/><span>{t('signalement.agents')}</span>
+        <div className="flex min-h-screen">
+            <nav className="w-64 h-auto bg-gray-50 text-black flex flex-col justify-center items-center">
+                <ul className="space-y-8 py-6 flex flex-col items-start w-full">
+                    <li className="flex w-full">
+                        <Link to="agents" className="flex items-start space-x-4 hover:bg-[#d6e0df] py-4 px-12 rounded-md hover:text-white w-full">
+                            <i data-feather="users" className="w-5 h-5 text-black hover:text-white"></i>
+                            <span className="text-sm text-black">{t('signalement.agents')}</span>
                         </Link>
                     </li>
-                    <li className="signal__item">
-                        <Link to="conducteurs" className="signal__link">
-                        <img src={ico2} alt="conducteurs"/><span>{t('signalement.conducteurs')}</span>
+                    <li className="flex w-full">
+                        <Link to="conducteurs" className="flex items-start space-x-4 hover:bg-[#d6e0df] py-4 px-8 rounded-md hover:text-white w-full">
+                            <i data-feather="user" className="w-5 h-5 text-black hover:text-white"></i>
+                            <span className="text-sm text-black">{t('signalement.conducteurs')}</span>
                         </Link>
                     </li>
-                    <li className="signal__item">
-                        <Link to="vehicules" className="signal__link">
-                        <img src={ico3} alt="véhicules"/><span>{t('signalement.vehicules')}</span>
+                    <li className="flex w-full">
+                        <Link to="vehicules" className="flex items-start space-x-4 hover:bg-[#d6e0df] py-4 px-10 rounded-md hover:text-white w-full">
+                            <i data-feather="truck" className="w-5 h-5 text-black hover:text-white"></i>
+                            <span className="text-sm text-black">{t('signalement.vehicules')}</span>
                         </Link>
                     </li>
-                    <li className="signal__item">
-                        <Link to="violations" className="signal__link">
-                        <img src={ico4} alt="violations"/><span>{t('signalement.violations')}</span>
+                    <li className="flex w-full">
+                        <Link to="violations" className="flex items-start space-x-4 hover:bg-[#d6e0df] py-4 px-8 rounded-md hover:text-white w-full">
+                            <i data-feather="alert-circle" className="w-5 h-5 text-black hover:text-white"></i>
+                            <span className="text-sm text-black">{t('signalement.violations')}</span>
                         </Link>
                     </li>
                 </ul>
             </nav>
-            <div className="content">
+
+            {/* Content */}
+            <div className="flex-1 bg-gray-100 p-6">
                 <Outlet />
             </div>
         </div>
+
     );
 };
 

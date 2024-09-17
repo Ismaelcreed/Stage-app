@@ -1,43 +1,45 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Vehicles } from 'src/vehicles/vehicles.schema';
-import { Police } from 'src/police/police.schema';
-import { Driver } from 'src/driver/driver.schema';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Prop, Schema, SchemaFactory  } from '@nestjs/mongoose';
 
-@Schema()
+
 @ObjectType()
-export class Violations extends Document {
-  @Field(() => String)
-  @Prop({ type: String, required: true, unique: true })
+@Schema()
+export class Violations {
+  @Field(() => ID)
+  @Prop({ type: String, required: true })
   id_violations: string;
 
-  @Field(() => Driver, { nullable: true })
-  @Prop({ type: String, ref: 'Driver', required: false })
-  driver_id?: string;
-
-  @Field(() => Police, { nullable: true })
-  @Prop({ type: String, ref: 'Police', required: false })
-  officer_id?: string;
-
-  @Field(() => Vehicles, { nullable: true })
-  @Prop({ type: String, ref: 'Vehicles', required: false })
-  vehicle_id?: string;
+  @Field()
+  @Prop({ type: String, required: true })
+  driver_id: string;
 
   @Field()
-  @Prop({ required: true })
-  violation_type: string;
+  @Prop({ type: String, required: true })
+  officer_id: string;
 
   @Field()
-  @Prop({ required: true })
+  @Prop({  type: String, required: true})
+  vehicle_id: string;
+
+  @Field(() => [String])
+  @Prop({ type: [String], required: true })  
+  violation_type: string[];
+
+  @Field()
+  @Prop({ type: String, required: true })
   desc: string;
 
   @Field()
-  @Prop({ required: true })
+  @Prop({ type: Date, required: true })
   date: Date;
 
   @Field()
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   localisation: string;
+
+  @Field({nullable : true})  
+  @Prop({ type: Number, required: true }) 
+  amende: number;
 }
+
 export const ViolationsSchema = SchemaFactory.createForClass(Violations);

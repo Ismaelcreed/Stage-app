@@ -1,37 +1,32 @@
-import { InputType, Field, ID } from '@nestjs/graphql';
-import { IsString, IsDateString } from 'class-validator';
+import { InputType, Field ,Int ,Float} from '@nestjs/graphql';
+import {  IsNotEmpty } from 'class-validator';
 
 @InputType()
 export class ViolationsInput {
   @Field()
-  @IsString()
   id_violations: string;
 
-  @Field(() => ID)
-  @IsString()
+  @Field()
   driver_id: string;
 
-  @Field(() => ID)
-  @IsString()
+  @Field()
   officer_id: string;
 
-  @Field(() => ID)
-  @IsString()
+  @Field()
   vehicle_id: string;
 
-  @Field()
-  @IsString()
-  violation_type: string;
+  @Field(() => [String])
+  violation_type: string[];
 
   @Field()
-  @IsString()
   desc: string;
 
   @Field()
-  @IsDateString()
   date: Date;
 
   @Field()
-  @IsString()
   localisation: string;
+
+  @Field(() => Float)
+  amende: number;
 }

@@ -12,31 +12,38 @@
 
 .contact-info {
   margin: 5px 0;
-  font-size: 15 px;
+  font-size: 15px;
   font-weight: 400px;
   color : #e4e4e4;
   display: flex;
 }
+.contact-info img {
+  width: 20px; /* Ajustez la largeur souhaitée */
+  height: 20px; /* Conserve les proportions de l'image */
+  margin-right: 5px;
+  margin-top: 0; /* Ajoute un espace entre l'image et le texte */
+}
+
 .copyright {
   margin-top: 20px;
   font-size: 14px;
   color: #a1a1a1;
 }
 .footer-hr {
-  width: 80%;
+  width: 100%;
   border: none;
-  border-top: 1px solid #db39fc;
+  border-top: 1px solid #3a9188;
   margin: 20px 0;
 }
 
 .btn-15 {
-  background: #b621fe;
+  background: #3a9188;
   border: none;
   width: 200px;
   height: 50px;
-  border-radius: 20px;
+  border-radius: 5px;
   z-index: 1;
-  position: relative; /* Ajout de position relative */
+  position: relative;
   padding: 10px 20px;
   font-size: 15px;
   font-family: "calibri";
@@ -54,7 +61,7 @@
   top: 0;
   right: 0;
   z-index: -1;
-  background-color: #c23dff;
+  background-color: #3a9188;
   border-radius: 5px;
   box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
               7px 7px 20px 0px rgba(0,0,0,.1),

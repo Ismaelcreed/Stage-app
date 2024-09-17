@@ -201,7 +201,9 @@ const Conducteurs = () => {
     Loading.hourglass('Chargement des données . . .');
     return null;
   }
-
+  else {
+    Loading.remove();
+  }
   if (error) {
     Report.failure("Erreur de chargement", "Vérifiez votre connexion", "OK");
     return null;
@@ -309,7 +311,10 @@ const Conducteurs = () => {
     >
       <Row gutter={32}>
         <Col span={24}>
-          <img onClick={exportToExcel} src={excel} style={{ margin: 0, marginBottom: 15 }} />
+        <div className="tooltip"><img onClick={exportToExcel} src={excel} style={{ marginLeft : 10,marginBottom: 10 }} />
+          <span className="tooltiptext">Exporter en excel</span>
+        </div>
+        <br />
           <button className='submit-button' onClick={openVerificationModal}>
             Ajouter un Conducteur
           </button>

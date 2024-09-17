@@ -37,4 +37,7 @@ export class PoliceService {
   async delete(badge_number: string): Promise<Police | null> {
     return this.policeModel.findOneAndDelete({ badge_number }).exec();
   }
+  async count(): Promise<number> {
+    return this.policeModel.countDocuments().exec();
+  }
 }

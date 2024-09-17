@@ -9,17 +9,35 @@
 
 .table-container {
     margin-top: 20px;
+    width: 100%; /* Assure que le conteneur occupe toute la largeur disponible */
+    max-width: 1200px; /* Fixer une largeur maximale si nécessaire */
+    overflow-x: auto; /* Permet le défilement horizontal si le tableau dépasse la largeur */
 }
 
-.custom-button {
-    background-color: #a200ff; /* Couleur de fond personnalisée */
-    border: none; /* Couleur de bordure personnalisée */
-    font-size: 16px;
-    border-radius: 10px;
-    height: 40px;
-    padding: 0 20px;
-    color: #fff;
-    margin: 0 auto;/* Couleur du texte */
+.ant-table {
+    width: 100%; /* Assure que le tableau occupe toute la largeur de son conteneur */
+}
+
+.ant-table-cell {
+    white-space: nowrap; /* Empêche le retour à la ligne du texte */
+    overflow: hidden; /* Cache le texte qui déborde */
+    text-overflow: ellipsis; /* Ajoute des points de suspension (...) à la fin du texte qui dépasse */
+}
+
+.ant-table-thead > tr > th {
+    white-space: nowrap; /* Empêche le retour à la ligne du texte des en-têtes */
+    overflow: hidden; /* Cache le texte qui déborde */
+    text-overflow: ellipsis; /* Ajoute des points de suspension (...) à la fin du texte des en-têtes qui dépasse */
+}
+
+.submit-button {
+  background-color: #3a9188; /* Couleur de fond personnalisée */
+  border: none; /* Couleur de bordure personnalisée */
+  font-size: 13px;
+  border-radius: 5px;
+  height: 40px;
+  padding: 0 20px;
+  color: #fff;
 }
 
 .ant-divider-vertical {

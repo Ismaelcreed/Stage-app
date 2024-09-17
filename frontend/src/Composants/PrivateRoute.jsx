@@ -1,17 +1,15 @@
+// PrivateRoute.js
 import React from 'react';
-import { Navigate } from 'react-router-dom'; 
-import ErrorPage from './ErrorPage';
+import { Navigate } from 'react-router-dom';
 
-
-const PrivateRoute = ({ userEmail, element: Component }) => {
-  const email = localStorage.getItem('email')
- 
+const PrivateRoute = ({ children }) => {
+  const email = localStorage.getItem('email');
 
   if (!email) {
-    return <Navigate to="/login" replace />;
+      return <Navigate to="/login" replace />;
   }
 
-  return <Component />; 
+  return children;
 };
 
 export default PrivateRoute;

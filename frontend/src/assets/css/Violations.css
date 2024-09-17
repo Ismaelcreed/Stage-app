@@ -1,41 +1,101 @@
 /* Violations.css */
+
+/* Conteneur principal */
 .container {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    margin-top: 10rem
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alignement à gauche */
 }
-/* yourStyles.css */
-.custom-modal .ant-modal-content {
-    background-image: url('../images/font.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 300px;
-  }
-  
+
+/* Conteneur de la table */
 .table-container {
-    margin-top: 20px;
+  width: 100%;
+  max-width: 1000px;
+  max-height: 1000px;
+  overflow-y: auto; 
 }
 
+/* Styles pour les cellules du tableau */
+.ant-table-cell {
+  white-space: nowrap; /* Empêche le retour à la ligne du texte */
+  overflow: hidden; /* Cache le texte qui déborde */
+  text-overflow: ellipsis; /* Ajoute des points de suspension (...) à la fin du texte qui dépasse */
+}
+
+/* Boutons personnalisés */
 .custom-button {
-    background-color: #a200ff; /* Couleur de fond personnalisée */
-    border: none; /* Couleur de bordure personnalisée */
-    font-size: 15px;
-    border-radius: 10px;
-    height: 40px;
-    padding: 0 20px;
-    color: #fff;
-  
+  background-color: #3a9188; /* Couleur de fond personnalisée */
+  border: none; /* Couleur de bordure personnalisée */
+  font-size: 14px;
+  font-family: "Calibri";
+  border-radius: 5px;
+  height: 40px;
+  padding: 0 20px;
+  color: #fff;
+  margin-left: 0; /* Aligner le bouton au centre sans marge automatique */
+  margin-right: 10px; /* Réduit l'espacement entre les boutons */
 }
 
-.ant-divider-vertical {
-    height: 100%;
-    border-left: 1px solid #ddd;
-    margin: 0;
+/* Styles des boutons Ant Design */
+.ant-btn {
+  background-color: #3a9188;
+  border-color: #3a9188;
+  font-size: 14px;
+  height: 40px;
+  padding: 0 20px;
+  color: #fff;
+  margin-left: 0; /* Assurez-vous qu'il n'y a pas de marge à gauche pour l'alignement */
+  margin-right: 10px; /* Ajuste l'espacement entre les boutons */
 }
 
-.ant-form-item {
-    margin-bottom: 15px;
+.ant-btn:hover, .ant-btn:focus {
+  background-color: #3a9188;
+  border-color: #3a9188;
+}
+
+/* Réduire l'espacement entre le tooltip et le bouton */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 0.2rem; /* Réduit l'espacement à gauche du tooltip */
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #3a9188;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  margin-left: auto; /* Centrer horizontalement */
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* Positionner la flèche au bas du tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #3a9188 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+/* Style des titres */
+h1 .amende-coontainer {
+  font-size: 20px;
+  color: #3a9188;
 }
