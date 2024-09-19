@@ -32,9 +32,9 @@ export class Vehicles extends Document {
   @Prop({ required: true })
   color: string;
 
-  @Field(() => Driver, { nullable: true })
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Driver', required: false})
-  owner_id?: Driver
+  @Field(() => String)
+  @Prop({ required: true })
+  owner_id: string;
 }
 
 export const VehiclesSchema = SchemaFactory.createForClass(Vehicles);

@@ -15,13 +15,8 @@ const LandingPage = () => {
                 <div className="minint">
                     <img src={logo} alt="Logo du ministère de l'intérieur" className="img-right" />
                     <WriterComponent />
-
                 </div>
             </div>
-            <div className="map-container">
-                <MapComponent />
-            </div>
-
         </div>
     );
 }

@@ -37,7 +37,7 @@
   padding: 0.75rem;
   transition: 250ms ease all;
   border-radius: 17.5px;
-  font-family: 'Calibri', sans-serif;
+  font-family: 'Avalon', sans-serif;
   white-space: nowrap; /* Éviter le retour à la ligne du texte */
   z-index: 20; /* Assurez-vous que le texte est au-dessus des autres éléments */
 }

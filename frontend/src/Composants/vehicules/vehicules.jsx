@@ -1,12 +1,12 @@
-import React, { useState , useEffect } from 'react';
-import { Form, Input, Table, Row, Col, Divider, Modal, Select, notification } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Table, Row, Col, Skeleton, Modal, Select, notification } from 'antd';
 import { motion } from 'framer-motion';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { EditTwoTone, DeleteTwoTone } from '@ant-design/icons';
 import "../../assets/css/Vehicules.css";
-import * as XLSX from 'xlsx'; // Importer xlsx;
+import * as XLSX from 'xlsx';
 import excel from "../../assets/images/excel.ico";
 
 const { Option } = Select;
@@ -20,9 +20,7 @@ const GET_VEHICLES_AND_DRIVERS = gql`
       modele
       year
       color
-      owner_id {
-      driver_name
-      }
+      owner_id 
     }
   }
 `;
@@ -52,13 +50,9 @@ const ADD_VEHICLE = gql`
      modele
      year
      color
-     owner_id {
-       driver_name
-     }
+     owner_id 
    }
  }
-
-
 `;
 
 const UPDATE_VEHICLE = gql`
@@ -70,9 +64,7 @@ const UPDATE_VEHICLE = gql`
     modele
     year
     color
-    owner_id {
-    driver_name
-    }
+    owner_id 
   }
 }
 `;
@@ -84,6 +76,7 @@ const DELETE_VEHICLE = gql`
     }
   }
 `;
+
 const GET_DRIVERS = gql`
   query GetDrivers {
     drivers {
@@ -92,17 +85,19 @@ const GET_DRIVERS = gql`
     }
   }
 `;
-function isValidObjectId(id) {
-  return /^[0-9a-fA-F]{24}$/.test(id);
-}
+const {Search} = Input;
 const Vehicules = () => {
   const [form] = Form.useForm();
   const { loading, error, data, refetch } = useQuery(GET_VEHICLES_AND_DRIVERS);
   const { loading: driversLoading, error: driversError, data: driversData } = useQuery(GET_DRIVERS);
   const [driversMap, setDriversMap] = useState({});
+  const [searchText, setSearchText] = useState('');
+  const handleSearch = (value) => {
+    setSearchText(value);
+  };
+
   useEffect(() => {
     if (data && data.drivers) {
-      // Créez une carte de correspondance des conducteurs
       const map = data.drivers.reduce((acc, driver) => {
         acc[driver.id_driver] = driver.driver_name;
         return acc;
@@ -110,6 +105,7 @@ const Vehicules = () => {
       setDriversMap(map);
     }
   }, [data]);
+
   const [createVehicle] = useMutation(ADD_VEHICLE, {
     onCompleted: () => {
       Loading.remove();
@@ -216,24 +212,26 @@ const Vehicules = () => {
   };
   
   if (loading || driversLoading) {
-    Loading.hourglass('Chargement des données  . . .');
+    Loading.hourglass('Chargement des données . . .');
     return null;
-  }
-  else {
+  } else {
     Loading.remove();
   }
+
   if (error || driversError) {
     Report.failure("Erreur de chargement", "Vérifiez votre connexion", "OK");
     return null;
   }
   
   const drivers = driversData?.drivers || [];
+
   const exportToExcel = () => {
     const ws = XLSX.utils.json_to_sheet(data.vehicles);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Véhicules');
     XLSX.writeFile(wb, 'Listes_des_derniers_véhicules.xlsx');
   };
+
   const columns = [
     {
       title: 'ID Véhicule',
@@ -266,34 +264,49 @@ const Vehicules = () => {
       title: 'Couleur',
       dataIndex: 'color',
       key: 'color',
+      render: (color) => (
+        <div style={{
+          width: '50px',
+          height: '20px',
+          backgroundColor: color,
+          borderRadius: '4px',
+        }} />
+      ),
     },
     {
-      title: 'Propriétaire / Conducteur',
+      title: 'Conducteur',
       dataIndex: 'owner_id',
       key: 'owner_id',
       render: (owner) => {
-       
-        if (!owner || !owner.driver_name) {
-          return <span style={{ color: 'red' , marginLeft : '35px' }}>Non défini</span>;
+        if (!owner) {
+          return <span style={{ color: 'red', marginLeft: '35px' }}>Non défini</span>;
         }
-        return(
-          <span style={{ marginLeft: '40px'  , color : 'blue'}}>{owner.driver_name}</span> ) 
+        return (
+          <span style={{ marginLeft: '40px', color: 'blue' }}>{owner}</span>
+        );
       },
-    }
-    
-,    
+    },
     {
       title: 'Actions',
       key: 'actions',
       render: (text, record) => (
         <span>
           <EditTwoTone onClick={() => handleEditVehicle(record)} style={{ marginRight: 16 }} />
-          < DeleteTwoTone  onClick={() => handleDeleteVehicle(record.id_vehicles)} />
+          <DeleteTwoTone onClick={() => handleDeleteVehicle(record.id_vehicles)} />
         </span>
       ),
     },
   ];
-
+  const filteredData = searchText
+  ? data?.vehicles?.filter(item =>
+      item.licence_plate.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.mark.toLowerCase().includes(searchText) || 
+      item.modele.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.year.toString().includes(searchText.toLowerCase()) ||
+      item.color.toLowerCase().includes(searchText.toLowerCase()) || 
+      item.owner_id.toLowerCase().includes(searchText.toLowerCase()) 
+    ) || []
+  : data?.vehicles || [];
   return (
     <motion.div
       initial={{ opacity: 0, y: 300 }}
@@ -301,21 +314,34 @@ const Vehicules = () => {
       transition={{ duration: 0.3 }}
       className="container"
     >
+      <Search
+        placeholder="Rechercher ..."
+        onSearch={handleSearch}
+        style={{ marginBottom: 10 ,marginRight : 10 , width : 400 }}
+      />
+      <div className="tooltip">
+        <img onClick={exportToExcel} src={excel} style={{ margin: 0, marginBottom: 10 }} />
+        <span className="tooltiptext">Exporter en excel</span>
+      </div>
+      <button className='custom-button' onClick={() => { setIsEditing(false); setCurrentVehicle(null); setIsModalVisible(true); }}>
+        Ajouter un Véhicule
+      </button>
       <Row gutter={32}>
         <Col span={24}>
-        <div className="tooltip"><img onClick={exportToExcel} src={excel} style={{ margin : 0,marginBottom: 10 }} />
-          <span className="tooltiptext">Exporter en excel</span>
-        </div>
-        <br />
-          <button className='custom-button' onClick={() => { setIsEditing(false); setCurrentVehicle(null); setIsModalVisible(true); }}>
-            Ajouter un Véhicule
-          </button>
-          <Divider />
-          <Table dataSource={data.vehicles} columns={columns} rowKey={(record) => record.id_vehicles} pagination={{ pageSize: 5 }} />
+        {loading ? (
+        <Skeleton active paragraph={{ rows: 5 }} />
+      ) : (
+        <Table
+          dataSource={filteredData.length > 0 ? filteredData : []}
+          columns={columns}
+          rowKey="id_vehicles"
+          pagination={{ pageSize: 5 }}
+        />
+      )}
         </Col>
       </Row>
       <Modal
-        title={isEditing ? '<p className="custom-button">Modifier le Véhicule</p>' : 'Ajouter un Véhicule'}
+        title={isEditing ? 'Modifier le Véhicule' : 'Ajouter un Véhicule'}
         open={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
         footer={[
@@ -385,25 +411,25 @@ const Vehicules = () => {
                 label="Couleur"
                 rules={[{ required: true, message: 'Couleur requise' }]}
               >
-                <Input />
+                <Input type='color' />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={24}>
-            <Form.Item
-            name="owner_id"
-            label="Propriétaire"
-            rules={[{ required: false, message: 'Propriétaire requis' }]}
-          >
-            <Select>
-              {drivers.map(driver => (
-                <Option key={driver.id_driver} value={driver.id_driver}>
-                  {driver.driver_name}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
+              <Form.Item
+                name="owner_id"
+                label="Propriétaire"
+                rules={[{ required: false, message: 'Propriétaire requis' }]}
+              >
+                <Select>
+                  {drivers.map(driver => (
+                    <Option key={driver.id_driver} value={driver.id_driver}>
+                      {driver.driver_name}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
             </Col>
           </Row>
         </Form>

@@ -1,6 +1,6 @@
 {
-  "home": "Accueil",
-  "report": "Dashboard",
+  "home": "Informations",
+  "report": "Synthèse",
   "statistics": "Statistiques",
   "account": "Compte",
   "language": "Langue",
@@ -132,6 +132,12 @@
       "erreur_chargement": "Erreur de chargement",
       "chargement" : "Chargement des données . . ."
     },
-    "deconnexion" : "Se déconnecter"
+    "deconnexion" : "Se déconnecter",
+    "Footer": {
+    "contact": "CONTACT",
+    "liens_utiles": "LIENS UTILES",
+    "gerer_maintenant": "Gérer maintenant"
+  },
+   "copyright": "© {{year}} Ministère de l'intérieur et de la décentralisation. Tous droits réservés."
   
 }

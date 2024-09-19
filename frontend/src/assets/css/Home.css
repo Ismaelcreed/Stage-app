@@ -1,17 +1,23 @@
-.home-container {
+.app {
     display: flex;
-    flex-direction: row;
-    height: 100vh;
+    flex-direction: column;
+   overflow-y: hidden;
 }
 
-.navbar {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 1000; 
+.home-container {
+    flex: 1; /* Permet à cette section de prendre tout l'espace disponible */
+    display: flex;
+    flex-direction: column; /* Changer en colonne pour aligner les éléments correctement */
+    margin-top: 10rem; /* Ajustez si nécessaire */
 }
 
 .landing-page {
-    flex: 1;
-    margin-top: 10rem;
+    flex: 1; /* Prend tout l'espace disponible */
+    overflow-y: hidden; /* Permet le défilement si le contenu dépasse */
 }
+    
+.footer-page{
+    position: absolute;
+    margin-top: 110vh;
+}
+/* Assurez-vous d'éviter les marges ou paddings supplémentaires qui pourraient provoquer le défilement */

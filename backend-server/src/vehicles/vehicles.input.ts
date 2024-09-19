@@ -27,7 +27,7 @@ export class VehiclesInput {
   @IsString()
   color: string;
 
-  @Field(() => String)
+  @Field()
   @IsString()
-  owner_id?: string;
+  owner_id: string;
 }

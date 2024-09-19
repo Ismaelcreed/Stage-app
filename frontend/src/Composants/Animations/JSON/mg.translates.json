@@ -1,5 +1,5 @@
 {
-  "home": "Trano",
+  "home": "Mombamomba",
   "report": "Tatitra",
   "statistics": "Statistika",
   "account": "Kaonty",
@@ -134,5 +134,11 @@
       "chargement" : "Miandry kely . . ."
   },
 
-  "deconnexion" : "Hivoaka"
+  "deconnexion" : "Hivoaka",
+  "Footer": {
+    "contact": "FIFANDRAISANA",
+    "liens_utiles": "ROHY MAHASOA",
+    "gerer_maintenant": "Tantano izao"
+  },
+  "copyright": "© {{year}} Ministeran'ny Atitany sy ny Decentralisation. Zo rehetra voatokana."
 }

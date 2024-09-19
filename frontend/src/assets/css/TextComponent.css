@@ -1,18 +1,18 @@
 /* TextComponent.css */
 .text-container {
+    display: flex; /* Utilise flexbox pour l'alignement */
+    flex-direction: column; /* Aligne les éléments verticalement */
     color: white;
     padding: 30px;
     max-width: 400px;
-    position: absolute; /* Fixed position to stay on the left */
+    position: absolute; 
     left: 0;
-    height: auto;
     top: 40px;
-  
+    gap: 20px; /* Espacement de 20px entre les éléments */
+    height: auto;
+    overflow-y: hidden;
 }
-.text-container:hover{
-    box-shadow: -1px 15px 30px -12px rgb(26, 25, 25);
-    cursor : pointer
-}
+
 
 .text-container h2 {
     margin-bottom: 10px;

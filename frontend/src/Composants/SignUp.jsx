@@ -51,9 +51,9 @@ const SignUp = () => {
                     email
                 }
             });
-            toast.success('Inscription réussi:', result.data.signup);
+            toast.success('Inscription réussi', result.data.signup);
         } catch (err) {
-            toast.error('Inscription en échec:', err);
+            toast.error('Inscription en échec', err);
         }
     };
 
@@ -109,7 +109,7 @@ const SignUp = () => {
                                 {loading ? <Spin /> : 'Créer'}
                             </button>
                         </form>
-                        <Link to={"/login"}><p className="link">Vous en avez déjà un?</p></Link>
+                        <Link to={"/login"}><p className="link">Vous en avez déjà un ?</p></Link>
                     </div>
 
                 </motion.div>

@@ -77,7 +77,6 @@ const MapComponent = () => {
     height: "100vh",
     width: "100%"
   };
-  const API_KEY = 'YOUR_GOOGLE_MAPS_API_KEY';
 
   return (
     <div className="map-container">

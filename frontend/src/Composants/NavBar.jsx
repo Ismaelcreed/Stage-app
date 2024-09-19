@@ -6,7 +6,7 @@ import logo from '../assets/images/Logo_agir.png';
 import frFlag from '../assets/images/frFlag.png';
 import mgFlag from '../assets/images/mlgFlag.png';
 import '../assets/css/NavBar.css';
-import { FaHome, FaRoad, FaTable, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
+import { FaInfo, FaRoad, FaTable, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 import confetti from 'canvas-confetti';
@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { Avatar } from 'antd';
 import welcomeSounds from "../assets/sounds/notif.mp3"
 import { useAudio } from "./Animations/AudioContext";
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
 const ME_QUERY = gql`
 query Me($email: String!) {
@@ -73,14 +74,14 @@ const NavBar = () => {
             angle: 60,
             spread: 55,
             origin: { x: 0 },
-            colors: ['#24e6d5', '#b60101']
+            colors: ['#24e6d5', '#3a9188']
         });
         confetti({
             particleCount: 150,
             angle: 120,
             spread: 55,
             origin: { x: 1 },
-            colors: ['#24e6d5', '#b60101']
+            colors: ['#24e6d5', '#3a9188']
         });
         audioRef.current.play().catch((error) => {
             console.log("Playback prevented: ", error);
@@ -89,12 +90,19 @@ const NavBar = () => {
 
     const handleLogout = () => {
         if (window.confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
-            localStorage.removeItem("email");
-            localStorage.removeItem('token');
-            localStorage.removeItem('username');
-            setLogout(true)
-            navigate('/login', { replace: true });
+            Loading.circle('Déconnexion . . .');
+            
+            setTimeout(() => {
+                localStorage.removeItem("email");
+                localStorage.removeItem('token');
+                localStorage.removeItem('username');
+                setLogout(true);
+                Loading.remove(1000);
+                
+                navigate('/login', { replace: true });
+            }, 2000); 
         }
+        
     };
 
     useEffect(() => {
@@ -126,11 +134,6 @@ const NavBar = () => {
             localStorage.setItem('introShown', 'true');
         }
 
-        // Supprimer la redirection vers /home ici
-        // if(email){
-        //     navigate("/home" , {replace : true})
-        // }
-
     }, [navigate, logout]);
 
     return (
@@ -144,7 +147,7 @@ const NavBar = () => {
                     </div>
                     <div className={`navbar-links-container ${menuOpen ? 'open' : ''}`}>
                         <div className="navbar-links">
-                            <FaHome />
+                            <FaInfo />
                             <Link to="/home" className="home">{i18n.t('home')}</Link>
                             <FaRoad />
                             <Link to="/home/signalements" className="signalement">{i18n.t('report')}</Link>

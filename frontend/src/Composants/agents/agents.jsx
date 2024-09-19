@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Select, Table, Row, Col, Divider } from 'antd';
+import { Form, Input, Select, Table, Row, Col, Divider ,Skeleton} from 'antd';
 import "../../assets/css/Agents.css";
 import { motion } from 'framer-motion';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
@@ -54,14 +54,29 @@ const AGENT_RANKS = [
   { value: 'Inspecteur', label: 'Inspecteur' },
   { value: 'Commandant', label: 'Commandant' }
 ];
-
+const {Search} = Input;
 const Agents = () => {
   const [form] = Form.useForm();
   const {t} = useTranslation();
+  const [searchText, setSearchText] = useState('');
+  const handleSearch = (value) => {
+    setSearchText(value);
+  };
   const { loading, error, data, refetch } = useQuery(GET_AGENTS, {
-    onCompleted: () => Loading.remove(),
+    onCompleted: () => {
+      if (!data.polices || data.polices.length === 0) {
+        notification.warning({
+          message: 'Aucune donnée disponible',
+          description: 'Il n\'y a pas de données à afficher pour le moment.',
+          placement: 'topRight',
+        });
+      }
+      Loading.remove();
+    },
     onError: () => Loading.remove(),
   });
+
+
 
   const [createPolice] = useMutation(ADD_AGENT, {
     onCompleted: () => {
@@ -132,7 +147,7 @@ const Agents = () => {
   };
 
   const handleDeleteAgent = (badge_number) => {
-    oading.hourglass(t('agents.suppression_en_cours'));
+    Loading.hourglass(t('agents.suppression_en_cours'));
     deletePolice({ variables: { badge_number } });
   };
 
@@ -188,7 +203,14 @@ const Agents = () => {
     },
   ];
 
-
+ 
+  const filteredData = searchText 
+    ? data?.polices?.filter(item =>
+        item.police_name.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.badge_number.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.rank.toLowerCase().includes(searchText.toLocaleLowerCase())
+      ) || []
+    : data?.polices || [];
   return (
     <motion.div
     initial={{ opacity: 0, y: 300 }}
@@ -204,7 +226,7 @@ const Agents = () => {
             label={t('agents.numéro')}
             rules={[{ required: true, message: t('Veuillez entrer le numéro') }]}
           >
-            <Input />
+            <Input disabled={isEditing}/>
           </Form.Item>
           <Form.Item
             name="police_name"
@@ -243,12 +265,20 @@ const Agents = () => {
         <Divider type="vertical" className="divider" />
       </Col>
       <Col span={11}>
-        
+      <Search
+        placeholder="Rechercher ..."
+        onSearch={handleSearch}
+        style={{ marginBottom: 10 ,marginLeft : 150 }}
+      />
         <div className="tooltip"><img onClick={exportToExcel} src={excel} style={{ margin : 0,marginBottom: 10 }} />
           <span className="tooltiptext">Exporter en excel</span>
         </div>
-        <Divider/>
-        <Table dataSource={data.polices} columns={columns} rowKey={(record) => record.badge_number} pagination={{ pageSize: 5 }} />
+            
+        <Table 
+        dataSource={filteredData} 
+        columns={columns} 
+        rowKey={(record) => record.badge_number}
+        pagination={{ pageSize: 5 }} />
       </Col>
     </Row>
   </motion.div>

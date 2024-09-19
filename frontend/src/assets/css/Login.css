@@ -76,13 +76,15 @@
 }
 
 .link {
-  font-family: 'Calibri';
+  font-family: 'Avalon';
   text-align: center;
   padding: 6px;
+  font-size: 14px;
 }
 
 .link p {
   text-decoration: none;
+  font-size: 14px
 }
 
 .formContent {
@@ -130,7 +132,7 @@
   border-radius: 10px;
   font-size: 1rem;
   cursor: pointer;
-  font-family: "Calibri";
+  font-family: "Avalon";
 }
 
 .formContent button:hover {

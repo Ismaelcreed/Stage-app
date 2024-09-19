@@ -10,7 +10,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import logo from "../assets/images/Logo_agir.png";
 import { Toaster, toast } from 'sonner';
 import gend from "../assets/images/Logo1.png";
-import { dotPulse } from 'ldrs'
+import { Spin } from "antd"
 
 const LOGIN_MUTATION = gql`
 mutation Login($email: String!, $password: String!) {
@@ -22,7 +22,7 @@ mutation Login($email: String!, $password: String!) {
 `;
 
 
-dotPulse.register()
+
 
 
 const Login = () => {
@@ -112,14 +112,10 @@ const Login = () => {
             </div>
             <button onClick={handleLogin} disabled={loading}>
               {loading ? <div className="sweet-loading">
-                <l-dot-pulse
-                  size="28"
-                  speed="1.3" 
-                  color="#3a9188" 
-                ></l-dot-pulse>
+                <Spin/>
               </div> : 'Se connecter'}
             </button>
-            <Link to="/signup" className="link"><p>Créer un compte?</p></Link>
+            <Link to="/signup" className="link"><p>Créer un compte ?</p></Link>
           </div>
         </motion.div>
         <div className="top-content">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
-import { Form, Input, Table, Row, Col, Modal, DatePicker, Select, Divider, message, Spin } from 'antd';
+import { Form, Input, Table, Row, Col, Modal, DatePicker, Select, Skeleton, message,} from 'antd';
 import { motion } from 'framer-motion';
 import { EditTwoTone, DeleteTwoTone, EyeTwoTone } from '@ant-design/icons';
 import { FaLocationArrow } from 'react-icons/fa';
@@ -20,6 +20,7 @@ import rep1 from "../../../public/Logo.png";
 import { ScaleLoader } from 'react-spinners';
 
 const { Option } = Select;
+const { Search } = Input;
 const GET_VIOLATIONS = gql`
   query Violations {
     violations {
@@ -198,18 +199,22 @@ const Violations = () => {
   const { data: driversData } = useQuery(GET_DRIVERS);
   const { data: agentsData } = useQuery(GET_AGENTS);
   const [selectedViolations, setSelectedViolations] = useState([]);
-  const [load, setLoading] = useState(false); 
-
+  const [load, setLoading] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [searchText, setSearchText] = useState('');
+  const handleSearch = (value) => {
+    setSearchText(value);
+  };
+
 
   const handleOpenLocationModal = (location) => {
     setSelectedLocation(location);
     setLocationModalVisible(true);
   };
- 
+
 
   useEffect(() => {
-    setLoading(true); 
+    setLoading(true);
     const totalFine = calculateTotalFine();
     setAmende(totalFine);
     setLoading(false); // Désactive le chargement après avoir calculé l'amende
@@ -270,34 +275,34 @@ const Violations = () => {
       console.error('selectedViolations n\'est pas un tableau:', selectedViolations);
       return 0;
     }
-  
+
     const total = selectedViolations.reduce((total, violation) => {
       const infraction = infractionsList.find((item) => item.title === violation);
       return infraction ? total + convertToNumber(infraction.fineAmount) : total;
     }, 0);
-  
 
-  
+
+
     return total;
   };
-  
- 
+
+
   let totalFine = calculateTotalFine();
   let totalFineFMG = totalFine * 5;
 
   const handleAddViolation = () => {
     form.validateFields().then(values => {
       console.log('Valeurs avant envoi:', values);
-    
+
       if (isNaN(totalFine)) {
         Report.failure('Erreur', 'L\'amende concernant le type d\'infraction n\'est pas valide .', 'OK');
         return;
       }
-  
+
       // Met à jour values.amende avec la valeur convertie
       values.amende = totalFine;
       values.violation_type = selectedViolations || '';
-  
+
       // Vérifiez les autres champs requis
       if (!values.id_violations || !values.driver_id || !values.officer_id || !values.vehicle_id || !values.violation_type || !values.date || !values.localisation) {
         Report.failure('Erreur', 'Veuillez remplir tous les champs requis.', 'OK');
@@ -305,7 +310,7 @@ const Violations = () => {
       }
 
       Loading.hourglass("Ajout en cours . . .");
-  
+
       // Appel à la mutation
       createViolation({
         variables: {
@@ -334,19 +339,19 @@ const Violations = () => {
       Report.failure('Erreur', `Erreur lors de la validation: ${error.message}`, 'OK');
     });
   };
-  
-  
+
+
   const handleUpdateViolation = async () => {
     try {
-     
+
       if (isNaN(totalFine)) {
         Report.failure('Erreur', 'L\'amende concernant le type d\'infraction n\'est pas valide.', 'OK');
         return;
       }
-     
+
       const values = await form.validateFields();
-  
-      
+
+
       if (!values.id_violations || !values.driver_id || !values.officer_id || !values.vehicle_id || !values.violation_type || !values.date || !values.localisation) {
         Report.failure('Erreur', 'Veuillez remplir tous les champs requis.', 'OK');
         return;
@@ -373,13 +378,13 @@ const Violations = () => {
       Report.success('Succès', 'La violation a été modifiée', 'OK');
       refetch();
       setIsModalVisible(false);
-  
+
     } catch (error) {
       Loading.remove();
       Report.failure('Erreur', `Erreur lors de la modification: ${error.message}`, 'OK');
     }
   };
-  
+
 
   const handleDeleteViolation = async (id_violations) => {
     try {
@@ -479,10 +484,10 @@ const Violations = () => {
       title: 'Amende',
       dataIndex: 'amende',
       key: 'amende',
-      render: (text, record) => {  
-        if (!record || !record.amende) {  
+      render: (text, record) => {
+        if (!record || !record.amende) {
           return <span style={{ color: 'red' }}>Non défini</span>;
-        } 
+        }
         return <span style={{ color: 'blue' }}>{record.amende} Ar</span>;
       },
       width: 150,
@@ -497,10 +502,10 @@ const Violations = () => {
           <EyeTwoTone onClick={() => handleViewViolation(record)} style={{ marginLeft: 16 }} />
         </>
       ),
-      width : 150
+      width: 150
     }
   ];
-  
+
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -534,37 +539,37 @@ const Violations = () => {
     form.setFieldsValue({ localisation: address });
   };
   let violationTypes = viewViolation && Array.isArray(viewViolation.violation_type)
-  ? viewViolation.violation_type
-  : [viewViolation?.violation_type || 'Inconnu'];
+    ? viewViolation.violation_type
+    : [viewViolation?.violation_type || 'Inconnu'];
 
 
   const handlePrint = () => {
     const printWindow = window.open('', '', 'height=1000,width=1000');
-  
+
     if (!printWindow) {
       alert('Impossible d\'ouvrir une nouvelle fenêtre pour l\'impression.');
       return;
     }
-  
-    const TVA = 0.2; 
+
+    const TVA = 0.2;
     let total = 0;
     const extractNumber = (text) => {
       const match = text.match(/\d+/);
-      return match ? parseInt(match[0], 10)*100 : 0;
+      return match ? parseInt(match[0], 10) * 100 : 0;
     };
-         const amendes = violationTypes.map(violationType => {
-    
-        const infraction = infractionsList.find(item => item.title === violationType);
-        return infraction ? extractNumber(infraction.fineAmount) : 0;
-      });
-  
+    const amendes = violationTypes.map(violationType => {
+
+      const infraction = infractionsList.find(item => item.title === violationType);
+      return infraction ? extractNumber(infraction.fineAmount) : 0;
+    });
+
     violationTypes.forEach((_, index) => {
       total += amendes[index] || 0;
     });
-  
+
     const totalFarany = amendes.reduce((sum, amende) => sum + amende, 0);
     const result = totalFarany + totalFarany * TVA;
-  
+
     // Commencer à écrire dans la fenêtre d'impression
     printWindow.document.write('<html>');
     printWindow.document.write('<head>');
@@ -585,12 +590,12 @@ const Violations = () => {
     printWindow.document.write('th { background-color: #d6e0df; }');
     printWindow.document.write('</style>');
     printWindow.document.write('</head><body>');
-  
+
     // Ajouter les images en haut à gauche et à droite
     printWindow.document.write('<div class="container">');
     printWindow.document.write(`<img src="${rep}" class="header-img left-img" alt="Rep Image"/>`);
     printWindow.document.write(`<img src="${rep1}" class="header-img right-img" alt="Rep Image"/>`);
-  
+
     // Ajouter le contenu de l'infraction
     printWindow.document.write('<div class="content">');
     printWindow.document.write('<h2><strong>Loi N° 2017-002</strong><br/></h2>');
@@ -601,13 +606,13 @@ const Violations = () => {
     printWindow.document.write(`<p><strong>Description:</strong> ${viewViolation.desc || 'Aucune description disponible'}</p>`);
     printWindow.document.write(`<p><strong>Date:</strong> ${moment(viewViolation.date).format('DD/MM/YYYY')}</p>`);
     printWindow.document.write(`<p><strong>Localisation:</strong> ${viewViolation.localisation}</p>`);
+
   
-    // Tableau avec les informations de l'amende
     printWindow.document.write('<div class="table-container">');
     printWindow.document.write('<table>');
     printWindow.document.write('<thead><tr><th><strong>Type de Violation</strong></th><th><strong>Amende à Payer</strong></th></tr></thead>');
     printWindow.document.write('<tbody>');
-  
+
     violationTypes.forEach((violation, index) => {
       const amende = amendes[index] || 0;
       printWindow.document.write(`<tr><td><strong>${violation}</strong></td><td><strong>${amende} Ariary</strong></td></tr>`);
@@ -620,31 +625,38 @@ const Violations = () => {
     printWindow.document.write('</tfoot>');
     printWindow.document.write('</table>');
     printWindow.document.write('</div>');
-  
+
     // Ajouter la section avec "Cachet" et "Signature" côte à côte
     printWindow.document.write('<div class="footer-container">');
     printWindow.document.write('<div class="footer-left"><strong>Cachet </strong></div>');
     printWindow.document.write('<div class="footer-right"><strong>Signature du chef de service :</strong></div>');
     printWindow.document.write('</div>');
-  
+
     printWindow.document.write('</div>'); // Fin du contenu principal
     printWindow.document.write('</body></html>');
     printWindow.document.close();
-  
+
     // Utiliser un délai avant d'imprimer pour s'assurer que le contenu est complètement chargé
     setTimeout(() => {
       printWindow.focus();
       printWindow.print();
     }, 1000); // Délai en millisecondes, ajustez si nécessaire
   };
-  
+
   const exportToExcel = () => {
     const ws = XLSX.utils.json_to_sheet(violationsData.violations);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Infractions');
     XLSX.writeFile(wb, 'Listes_des_derniers_infractions.xlsx');
   };
-
+  const filteredData = searchText
+    ? violationsData?.violations?.filter(item =>
+      item.officer_id.toLowerCase().includes(searchText) ||
+      item.vehicle_id.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.driver_id.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.date.toString().includes(searchText.toLowerCase())
+    ) || []
+    : violationsData?.violations || [];
 
   return (
     <motion.div
@@ -652,11 +664,14 @@ const Violations = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
       className="container"
-    >
+    ><Search
+        placeholder="Rechercher ..."
+        onSearch={handleSearch}
+        style={{ marginBottom: 10, marginRight: 10, width: 400 }}
+      />
       <div className="tooltip"><img onClick={exportToExcel} src={excel} style={{ margin: 0, marginBottom: 10 }} />
         <span className="tooltiptext">Exporter en excel</span>
       </div>
-      <br />
       <button className='custom-button' onClick={showModal}>
         Ajouter une Violation
       </button>
@@ -666,15 +681,18 @@ const Violations = () => {
         onSelectLocation={handleLocationSelect}
         onUpdateAddress={(address) => form.setFieldsValue({ localisation: address })}
       />
-      <Divider />
       <div className="table-container">
-      <Table
-        dataSource={violationsData ? violationsData.violations : []}
-        columns={columns}
-        rowKey="id_violations"
-        pagination={{ pageSize: 5 }}
-      />
-    </div>
+        {loading ? (
+        <Skeleton active paragraph={{ rows: 5 }} />
+      ) : (
+        <Table
+          dataSource={filteredData.length > 0 ? filteredData : []}
+          columns={columns}
+          rowKey="id_violations"
+          pagination={{ pageSize: 5 }}
+        />
+      )}
+      </div>
 
       <Modal
         title={editingViolation ? 'Modifier la Violation' : 'Ajouter une Violation'}
@@ -695,7 +713,7 @@ const Violations = () => {
                 name="id_violations"
                 rules={[{ required: true, message: 'Veuillez saisir l\'ID de la violation!' }]}
               >
-                <Input />
+                <Input disabled={editingViolation} />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -758,7 +776,7 @@ const Violations = () => {
                 name="violation_type"
                 rules={[{ required: true, message: 'Veuillez entrer le type d\'infracion!' }]}
               >
-                <Select placeholder="Sélectionnez le type d'infraction'comis"   mode="multiple" onChange={handleInfractionChange} >
+                <Select placeholder="Sélectionnez le type d'infraction'comis" mode="multiple" onChange={handleInfractionChange} >
                   {infractionsList.map((item, index) => (
                     <Select.Option key={index} value={item.title}>
                       {item.title}
@@ -791,7 +809,6 @@ const Violations = () => {
 
               <Form.Item name="localisation" label="Localisation">
                 <Input
-                  readOnly
                   suffix={
                     <FaLocationArrow
                       style={{ cursor: 'pointer' }}
@@ -812,11 +829,11 @@ const Violations = () => {
               name="amende"
             >
               <p style={{ margin: '0', fontSize: '1.2em' }}>
-              <strong>
-                {load ? (
-                  <ScaleLoader color='#3a9188' />
-                ) : (totalFine === 0 ? '0 AR ou 0 FMG' : `${totalFine} AR ou ${totalFineFMG} FMG`)}
-              </strong>
+                <strong>
+                  {load ? (
+                    <ScaleLoader color='#3a9188' />
+                  ) : (totalFine === 0 ? '0 AR ou 0 FMG' : `${totalFine} AR ou ${totalFineFMG} FMG`)}
+                </strong>
               </p>
             </Form.Item>
 
@@ -865,7 +882,7 @@ const Violations = () => {
             </p>
             <p><strong>Type de Violation:</strong> {violationTypes.join(' - ') || 'Inconnu'}</p>
             <p><strong>Description:</strong> {viewViolation.desc || 'Aucune description disponible'}</p>
-            <p><strong>Montant de l'Amende:</strong> <strong>{viewViolation.amende|| 'Non défini'}  Ar</strong></p>
+            <p><strong>Montant de l'Amende:</strong> <strong>{viewViolation.amende || 'Non défini'}  Ar</strong></p>
             <p><strong>Date:</strong> {moment(viewViolation.date).format('DD/MM/YYYY')}</p>
             <p><strong>Localisation:</strong> {viewViolation.localisation}</p>
           </>

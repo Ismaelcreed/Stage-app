@@ -43,11 +43,16 @@
 
 /* Style pour le titre principal */
 .text-welcome-container h1 {
-    font-size: 4rem;
-    margin: 0;
+    font-size: 50px; /* Ou 40px selon votre préférence */
+    width: 50vw;
     color: #3a9188;
-    font-weight: 250;
-    font-family: "Calibri";
+    font-weight: 500;
+    font-family: "Avalon";
+}
+
+.text-welcome-container h1 strong {
+    text-transform: capitalize;
+    color : rgb(99, 96, 96)
 }
 .text-container{
     position: relative;
@@ -58,23 +63,24 @@
 }
 /* Style pour le sous-titre */
 .text-welcome-container h2 {
-    font-size: 1rem;
+    font-size: 14px;
     margin: 10px 0 0 0;
     color: #3a9188;
     font-weight: 500;
-    font-family: "Calibri";
+    font-family: "Avalon";
 }
 /* Button */
 .start-button {
     padding: 10px 20px;
-    font-size: 20px;
+    font-size: 15px;    
     color: #3a9188;
     background: #fff;
     border: 1.5px solid #3a9188;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    font-family: "Calibri";
+    font-family: "Avalon";
 }
+
 
 .start-button:hover {
     background: linear-gradient(45deg, #52c9bd, #09635a);
@@ -82,12 +88,22 @@
     color : #fff
 }
 .image-container {
-    position: absolute;
-    top: 20%; /* Ajuste la position verticale */
-    right: -58%; /* Aligne à droite */
-    max-width: 25%; /* Ajuste la largeur maximum de l'image */
+    position: absolute; /* Positionnez l'image par rapport au conteneur parent */
+    top: 15%; /* Ajustez selon vos besoins */
+    right: -61%; /* Ajustez selon vos besoins */
+    max-width: 150px;
     z-index: 1; /* Assurez-vous que l'image est devant le SVG */
 }
+
+.arrow-animation {
+    position: absolute; /* Positionnez la flèche de manière absolue */
+    margin-left: 85vw; /* Centrez horizontalement */
+    transform: translateX(-60%); /* Ajustez le centrage */
+    width: 80px; /* Ajustez la taille de la flèche si nécessaire */
+    z-index: 5;
+    top : 35vh /* Assurez-vous que la flèche est au-dessus du bouton */
+}
+
 .welcome-image {
     width: 100%; /* Ajuster la largeur de l'image */
     height: auto; /* Garantit que l'image reste proportionnelle */

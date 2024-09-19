@@ -1,10 +1,10 @@
-import React, { useEffect} from "react";
+import React from "react";
 import NavBar from "./NavBar";
 import LandingPage from "./LandingPage";
-import '../assets/css/Home.css'; 
+import '../assets/css/Home.css';
 import Footer from "./Footer";
 
-const Home = () => {  
+const Home = () => {
     return (
         <div className="app">
             <div className="home-container">
@@ -14,10 +14,11 @@ const Home = () => {
                 <div className="landing-page">
                     <LandingPage />
                 </div>
+                <div className="footer-page">
+                    <Footer /> 
+                </div>
             </div>
-            <div className="footer-container">
-                <Footer />
-            </div>
+           
         </div>
     );
 };

@@ -3,7 +3,7 @@
 body {
     background-color: #fffffff3;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family:'Avalon';
 }
 
 .navbar {
@@ -51,17 +51,18 @@ body {
 .navbar-links {
     display: flex;
     align-items: center;
-    gap: 20px;
+    flex-direction: row;
+    gap: 25px;
 }
 
 .navbar-links a {
-    font-family: "Calibri";
+    font-family: "Avalon";
     font-weight: 800;
     text-decoration: none;
     color: #333;
     padding: 10px 15px;
     transition: color 0.3s ease;
-    font-size: 16px;
+    font-size: 14px;
     position: relative; /* Ajouté */
 }
 
@@ -90,12 +91,13 @@ body {
 
 .language-selector {
     position: relative;
+    font-size: 14px;
 }
 
 .lang-button {
     background: none;
     border: none;
-    font-family: "Calibri";
+    font-family: "Avalon";
     font-weight: 800;
     color: #3a9188;
     cursor: pointer;
@@ -108,11 +110,11 @@ body {
     position: absolute;
     top: 100%;
     right: 20;
-    background: white;
+    background: rgb(163, 139, 139);
     border: 1px solid transparent;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     list-style: none;
-    width: 10rem;
+    font-size: 14px;
     margin: 0;
     padding: 0;
     z-index: 1000;
@@ -120,7 +122,7 @@ body {
 
 .lang-menu li {
     padding: 5px;
-    font-size: 13px;
+    font-size: 15px;
     margin-right: 5rem;
     cursor: pointer;
     display: flex;
@@ -129,6 +131,7 @@ body {
 
 .lang-menu li:hover {
     background-color: #ece6e6;
+    background-size: cover;
 }
 
 .flag-icon {
@@ -171,7 +174,7 @@ body {
     cursor: pointer;
     color: #333;
     text-decoration: none;
-    font-family: "Calibri";
+    font-family: "Avalon";
 }
 
 /* Hover effect pour les éléments du menu déroulant */
@@ -241,7 +244,7 @@ body {
     cursor: pointer;
     color: #333;
     text-decoration: none;
-    font-family: "Calibri";
+    font-family: "Avalon";
 }
 
 .dropdown-item:hover {

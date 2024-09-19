@@ -1,5 +1,5 @@
-import React, { useState  } from 'react';
-import { Form, Input, Table, Row, Col, Divider, Modal, Select, Upload, Image, Popconfirm } from 'antd';
+import React, { useState } from 'react';
+import { Form, Input, Table, Row, Col, Skeleton, Modal, Select, Image, Popconfirm } from 'antd';
 import { motion } from 'framer-motion';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
@@ -66,13 +66,15 @@ const DELETE_CONDUCTOR = gql`
     }
   }
 `;
-
+const { Search } = Input;
 const Conducteurs = () => {
   const [form] = Form.useForm();
   const { loading, error, data, refetch } = useQuery(GET_CONDUCTORS);
   const [licenceNumber, setLicenceNumber] = useState('');
-
-
+  const [searchText, setSearchText] = useState('');
+  const handleSearch = (value) => {
+    setSearchText(value);
+  };
   const [createConductor] = useMutation(ADD_CONDUCTOR, {
     onCompleted: () => {
       Loading.remove();
@@ -118,7 +120,7 @@ const Conducteurs = () => {
   const [previewImage, setPreviewImage] = useState('');
   const [isCameraModalVisible, setIsCameraModalVisible] = useState(false);
   const [permis, setPermis] = useState('');
-  const [ocrData, setOcrData] = useState({}); 
+  const [ocrData, setOcrData] = useState({});
 
 
   const handleVerification = (isConfirmed) => {
@@ -221,7 +223,7 @@ const Conducteurs = () => {
       title: 'ID',
       dataIndex: 'id_driver',
       key: 'id_driver',
-      sorter: (a, b) => a.id_driver - b.id_driver, 
+      sorter: (a, b) => a.id_driver - b.id_driver,
       sortDirections: ['ascend', 'descend'],
     },
     {
@@ -301,6 +303,16 @@ const Conducteurs = () => {
     XLSX.utils.book_append_sheet(wb, ws, 'Conducteurs');
     XLSX.writeFile(wb, 'Listes_des_derniers_conducteurs.xlsx');
   };
+  const filteredData = searchText
+  ? data?.drivers?.filter(item =>
+      item.driver_name.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.licence_number.toLowerCase().includes(searchText) || 
+      item.sex.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.age.toString().includes(searchText.toLowerCase()) ||
+      item.address.toLowerCase().includes(searchText.toLowerCase()) || 
+      item.phone.toLowerCase().includes(searchText.toLowerCase()) 
+    ) || []
+  : data?.drivers || [];
 
   return (
     <motion.div
@@ -309,17 +321,30 @@ const Conducteurs = () => {
       transition={{ duration: 0.3 }}
       className="container"
     >
+        <Search
+        placeholder="Rechercher ..."
+        onSearch={handleSearch}
+        style={{ width: 500  , marginBottom : 0 , marginRight : 10}}
+      />
+      <div className="tooltip"><img onClick={exportToExcel} src={excel} style={{ marginLeft: 10, marginBottom: 10 }} />
+        <span className="tooltiptext">Exporter en excel</span>
+      </div>
+      <button className='submit-button' onClick={openVerificationModal}>
+        Ajouter un Conducteur
+      </button>
+      
       <Row gutter={32}>
         <Col span={24}>
-        <div className="tooltip"><img onClick={exportToExcel} src={excel} style={{ marginLeft : 10,marginBottom: 10 }} />
-          <span className="tooltiptext">Exporter en excel</span>
-        </div>
-        <br />
-          <button className='submit-button' onClick={openVerificationModal}>
-            Ajouter un Conducteur
-          </button>
-          <Divider />
-          <Table dataSource={data.drivers} columns={columns} rowKey={(record) => record.id_driver} pagination={{ pageSize: 5 }} />
+        {loading ? (
+        <Skeleton active paragraph={{ rows: 5 }} />
+      ) : (
+        <Table
+          dataSource={filteredData.length > 0 ? filteredData : []}
+          columns={columns}
+          rowKey="id_driver"
+          pagination={{ pageSize: 5 }}
+        />
+      )}
         </Col>
       </Row>
       <Modal
@@ -348,12 +373,12 @@ const Conducteurs = () => {
               </Form.Item>
             </Col>
             <Col span={12}>
-            <Form.Item
+              <Form.Item
                 name="licence_number"
                 label="Numéro de Permis"
                 rules={[{ required: true, message: 'Numéro de permis requis' }]}
               >
-                 <Input value={permis} onChange={(e) => setPermis(e.target.value)} />
+                <Input value={permis} onChange={(e) => setPermis(e.target.value)} />
               </Form.Item>
             </Col>
           </Row>
