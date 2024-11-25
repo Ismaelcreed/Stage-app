@@ -8,7 +8,7 @@ body {
 
 .navbar {
     background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(49, 49, 49, 0.349);
+    box-shadow: 0 2px 4px rgba(131, 129, 129, 0.349);
     padding: 0;
     position: absolute; /* Fixer le navBar en haut */
     top: 0;
@@ -126,12 +126,12 @@ body {
     margin-right: 5rem;
     cursor: pointer;
     display: flex;
-    align-items: center;
+    
 }
 
 .lang-menu li:hover {
     background-color: #ece6e6;
-    background-size: cover;
+    width : 100%;
 }
 
 .flag-icon {

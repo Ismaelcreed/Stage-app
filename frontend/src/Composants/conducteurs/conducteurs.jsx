@@ -11,6 +11,7 @@ import female from "../../assets/images/woman.ico";
 import * as XLSX from 'xlsx'; // Importer xlsx;
 import excel from "../../assets/images/excel.ico";
 import CameraScanner from '../CameraScanner';
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 
@@ -24,14 +25,14 @@ const GET_CONDUCTORS = gql`
       age
       address
       phone
-      profile
+     
     }
   }
 `;
 
 const ADD_CONDUCTOR = gql`
-  mutation CreateDriver($id_driver: String!, $licence_number: String!, $driver_name: String!, $sex: String!, $age: Int!, $address: String!, $phone: String!, $profile: Upload) {
-    createDriver(id_driver: $id_driver, licence_number: $licence_number, driver_name: $driver_name, sex: $sex, age: $age, address: $address, phone: $phone, profile: $profile) {
+  mutation CreateDriver($id_driver: String!, $licence_number: String!, $driver_name: String!, $sex: String!, $age: Int!, $address: String!, $phone: String!) {
+    createDriver(id_driver: $id_driver, licence_number: $licence_number, driver_name: $driver_name, sex: $sex, age: $age, address: $address, phone: $phone) {
       id_driver
       licence_number
       driver_name
@@ -39,14 +40,14 @@ const ADD_CONDUCTOR = gql`
       age
       address
       phone
-      profile
+   
     }
   }
 `;
 
 const UPDATE_CONDUCTOR = gql`
-  mutation UpdateDriver($id_driver: ID!, $licence_number: String!, $driver_name: String!, $sex: String!, $age: Int!, $address: String!, $phone: String!, $profile: Upload) {
-    updateDriver(id_driver: $id_driver, licence_number: $licence_number, driver_name: $driver_name, sex: $sex, age: $age, address: $address, phone: $phone, profile: $profile) {
+  mutation UpdateDriver($id_driver: ID!, $licence_number: String!, $driver_name: String!, $sex: String!, $age: Float!, $address: String!, $phone: String!) {
+    updateDriver(id_driver: $id_driver, licence_number: $licence_number, driver_name: $driver_name, sex: $sex, age: $age, address: $address, phone: $phone) {
       id_driver
       licence_number
       driver_name
@@ -54,7 +55,6 @@ const UPDATE_CONDUCTOR = gql`
       age
       address
       phone
-      profile
     }
   }
 `;
@@ -72,42 +72,45 @@ const Conducteurs = () => {
   const { loading, error, data, refetch } = useQuery(GET_CONDUCTORS);
   const [licenceNumber, setLicenceNumber] = useState('');
   const [searchText, setSearchText] = useState('');
+  const {t} = useTranslation();
+
   const handleSearch = (value) => {
     setSearchText(value);
   };
   const [createConductor] = useMutation(ADD_CONDUCTOR, {
     onCompleted: () => {
       Loading.remove();
-      Report.success('Succès', 'Conducteur ajouté avec succès', 'OK');
+      Report.success(t('conducteur.succès_ajout'), t('conducteur.succès_ajout'), 'OK');
       refetch();
       setIsAddModalVisible(false);
     },
     onError: (err) => {
       Loading.remove();
-      Report.failure('Erreur', `Erreur lors de l'ajout: ${err.message}`, 'OK');
+      Report.failure(t('conducteur.erreur_ajout'), `${t('conducteur.erreur_ajout')}: ${err.message}`, 'OK');
     }
   });
   const [updateConductor] = useMutation(UPDATE_CONDUCTOR, {
     onCompleted: () => {
       Loading.remove();
-      Report.success('Succès', 'Conducteur mis à jour avec succès', 'OK');
+      Report.success(t('conducteur.succès_mise_a_jour'), t('conducteur.succès_mise_a_jour'), 'OK');
       refetch();
       setIsAddModalVisible(false);
     },
     onError: (err) => {
       Loading.remove();
-      Report.failure('Erreur', `Erreur lors de la mise à jour: ${err.message}`, 'OK');
+      Report.failure(t('conducteur.erreur_mise_a_jour'), `${t('conducteur.erreur_mise_a_jour')}: ${err.message}`, 'OK');
+     
     }
   });
   const [deleteConductor] = useMutation(DELETE_CONDUCTOR, {
     onCompleted: () => {
       Loading.remove();
-      Report.success('Succès', 'Conducteur supprimé avec succès', 'OK');
+      Report.success(t('conducteur.succès_suppression'), t('conducteur.succès_suppression'), 'OK');
       refetch();
     },
     onError: (err) => {
       Loading.remove();
-      Report.failure('Erreur', `Erreur lors de la suppression: ${err.message}`, 'OK');
+      Report.failure(t('conducteur.erreur_suppression'), `${t('conducteur.erreur_suppression')}: ${err.message}`, 'OK');
     }
   });
 
@@ -136,8 +139,8 @@ const Conducteurs = () => {
 
   const handleCameraCapture = (image) => {
     // Mettre à jour l'état du numéro de permis et des données OCR
-    setPermis(''); // Définir le numéro de permis de conduire extrait ici
-    setOcrData({ licence_number: '' }); // Exemple de données OCR
+    setLicenceNumber(''); // Définir le numéro de permis de conduire extrait ici
+    setOcrData({ licence_number: image }); // Exemple de données OCR
 
     setIsCameraModalVisible(false);
     setIsAddModalVisible(true); // Ouvrir le modal d'ajout après la capture
@@ -147,7 +150,7 @@ const Conducteurs = () => {
   const handleAddConductor = () => {
     form.validateFields().then(values => {
       const age = parseInt(values.age, 10);
-      Loading.hourglass('Ajout en cours...');
+      Loading.hourglass(t('conducteur.ajout_en_cours '));
       createConductor({
         variables: {
           id_driver: values.id_driver,
@@ -176,7 +179,7 @@ const Conducteurs = () => {
   const handleUpdateConductor = () => {
     form.validateFields().then(values => {
       const age = parseInt(values.age, 10);
-      Loading.hourglass('Mise à jour en cours...');
+      Loading.hourglass(t('conducteur.mise_a_jour_en_cours'));
       updateConductor({
         variables: {
           id_driver: values.id_driver,
@@ -186,7 +189,6 @@ const Conducteurs = () => {
           age: age,
           address: values.address,
           phone: values.phone,
-          profile: values.profile,
         }
       });
     }).catch(info => {
@@ -195,19 +197,19 @@ const Conducteurs = () => {
   };
 
   const handleDeleteConductor = (id_driver) => {
-    Loading.hourglass("Suppression en cours ...")
+    Loading.hourglass(t('conducteur.suppression_en_cours'))
     deleteConductor({ variables: { id_driver } })
   };
 
   if (loading) {
-    Loading.hourglass('Chargement des données . . .');
+    Loading.hourglass(t('conducteur.chargement'));
     return null;
   }
   else {
     Loading.remove();
   }
   if (error) {
-    Report.failure("Erreur de chargement", "Vérifiez votre connexion", "OK");
+    Report.failure(t('conducteur.erreur_chargement'), t('conducteur.erreur_chargement'), 'OK');
     return null;
   }
 
@@ -220,24 +222,24 @@ const Conducteurs = () => {
 
   const columns = [
     {
-      title: 'ID',
+      title: t('conducteur.id'),
       dataIndex: 'id_driver',
       key: 'id_driver',
       sorter: (a, b) => a.id_driver - b.id_driver,
       sortDirections: ['ascend', 'descend'],
     },
     {
-      title: 'Numéro de Permis',
+      title: t('conducteur.permis'),
       dataIndex: 'licence_number',
       key: 'licence_number',
     },
     {
-      title: 'Nom',
+      title: t('conducteur.nom'),
       dataIndex: 'driver_name',
       key: 'driver_name',
     },
     {
-      title: 'Sexe',
+      title: t('conducteur.sexe'),
       dataIndex: 'sex',
       key: 'sex',
       render: text => (
@@ -247,7 +249,7 @@ const Conducteurs = () => {
       ),
     },
     {
-      title: 'Âge',
+      title: t('conducteur.age'),
       dataIndex: 'age',
       key: 'age',
       render: text => (
@@ -255,17 +257,17 @@ const Conducteurs = () => {
       )
     },
     {
-      title: 'Adresse',
+      title: t('conducteur.adresse'),
       dataIndex: 'address',
       key: 'address',
     },
     {
-      title: 'Téléphone',
+      title: t('conducteur.telephone'),
       dataIndex: 'phone',
       key: 'phone',
     },
     {
-      title: 'Avatar',
+      title: t('conducteur.avatar'),
       dataIndex: 'profile',
       key: 'profile',
       render: (text, record) => {
@@ -330,7 +332,7 @@ const Conducteurs = () => {
         <span className="tooltiptext">Exporter en excel</span>
       </div>
       <button className='submit-button' onClick={openVerificationModal}>
-        Ajouter un Conducteur
+        {t('conducteur.ajouter')}
       </button>
       
       <Row gutter={32}>
@@ -353,7 +355,7 @@ const Conducteurs = () => {
         onCancel={() => setIsAddModalVisible(false)}
         footer={[
           <button key="submit" className='custom-button' onClick={isEditing ? handleUpdateConductor : handleAddConductor}>
-            {isEditing ? 'Mettre à jour' : 'Soumettre'}
+            {isEditing ? t('conducteur.mettre_a_jour') : t('conducteur.soumettre')}
           </button>,
         ]}
       >
@@ -378,7 +380,7 @@ const Conducteurs = () => {
                 label="Numéro de Permis"
                 rules={[{ required: true, message: 'Numéro de permis requis' }]}
               >
-                <Input value={permis} onChange={(e) => setPermis(e.target.value)} />
+                <Input value={licenceNumber} onChange={(e) => setLicenceNumber(e.target.value)} />
               </Form.Item>
             </Col>
           </Row>
@@ -444,16 +446,16 @@ const Conducteurs = () => {
         <Image alt="Profil" src={previewImage} />
       </Modal>
       <Modal
-        title="Vérification du Permis de Conduire"
+        title={t('conducteur.vf')}
         open={isVerificationModalVisible}
         onCancel={() => setIsVerificationModalVisible(false)}
         footer={[
           <button key="confirm" className='custom-button' onClick={() => handleVerification(true)}>
-            Confirmer
+            {t('conducteur.confirmation')}
           </button>,
         ]}
       >
-        <p>Veuillez vérifier les informations du permis de conduire avant de continuer.</p>
+        <p>{t('conducteur.verification')}.</p>
       </Modal>
       <CameraScanner
         visible={isCameraModalVisible}

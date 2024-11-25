@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import QRCode from 'qrcode.react';
+import { useTranslation } from 'react-i18next';
 
 const QRCodeWithDownload = ({ 
   id_violations, 
@@ -13,7 +14,7 @@ const QRCodeWithDownload = ({
   localisation 
 }) => {
   const qrRef = useRef();
-
+  const { t } = useTranslation();
   // Créez la chaîne d'information pour le QR code
   const infoString = `
     Numéro de l'infraction: ${id_violations}
@@ -23,7 +24,7 @@ const QRCodeWithDownload = ({
     Type de Violation: ${violation_type || 'Inconnu'}
     Description: ${desc || 'Aucune description disponible'}
     Montant de l'Amende: ${fineAmount || 'Non défini'}
-    Date: ${date}
+    Date: ${date.split('T')[0]}
     Localisation: ${localisation}
   `;
 
@@ -62,7 +63,7 @@ const QRCodeWithDownload = ({
   }}
   onClick={downloadQRCode}
 >
-  Télécharger ce QR Code
+ {t('violations.qrcode')}
 </a>
     </div>
   );

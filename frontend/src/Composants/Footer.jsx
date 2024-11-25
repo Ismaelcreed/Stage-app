@@ -40,14 +40,15 @@ const Footer = () => {
             <div className="footer-content">
                 <div className="contact-info-container">
                     <h3>{t('Footer.contact')}</h3>
-                    <div className="contact-info">
-                        <img src={mail} alt="Email" />: ministereinterieur@gmail.com
-                    </div>
+                   
                     <div className="contact-info">
                         <img src={phone} alt="Phone" />: +123 456 789
                     </div>
                     <div className="contact-info">
                         <img src={net} alt="Net Logo" />:<a href="http://mid.gov.mg" target="_blank" rel="noopener noreferrer"> MININT</a>
+                    </div>
+                    <div className="contact-info">
+                        <img src={mail} alt="Email" />: ministere@gmail.com
                     </div>
                 </div>
                 <div className="footer-container">

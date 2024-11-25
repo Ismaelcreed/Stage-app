@@ -26,6 +26,8 @@
 
 .contact-info {
   display: flex;
+  width: auto;
+  /* background-color: #fff; */
   align-items: center; /* Aligne les images et le texte verticalement */
   margin: 5px 0; /* Espacement entre chaque contact */
 }
@@ -34,10 +36,12 @@
   width: 20px;
   height: 20px;
   margin-right: 5px;
+  align-items: center;
 }
 
 .contact-info-container {
   display: flex;
+  /* padding: 100px; */
   flex-direction: column; /* Aligne les éléments verticalement */
   align-items: flex-start; /* Aligne à gauche */
   margin-bottom: 20px; /* Espace en bas si nécessaire */

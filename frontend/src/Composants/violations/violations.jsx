@@ -18,6 +18,7 @@ import QRCodeWithDownload from '../QrCode';
 import rep from "../../assets/images/rep.png";
 import rep1 from "../../../public/Logo.png";
 import { ScaleLoader } from 'react-spinners';
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 const { Search } = Input;
@@ -202,6 +203,7 @@ const Violations = () => {
   const [load, setLoading] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [searchText, setSearchText] = useState('');
+  const {t} = useTranslation();
   const handleSearch = (value) => {
     setSearchText(value);
   };
@@ -218,7 +220,9 @@ const Violations = () => {
     const totalFine = calculateTotalFine();
     setAmende(totalFine);
     setLoading(false); // Désactive le chargement après avoir calculé l'amende
-  }, [selectedViolations]); // Dépendance pour recalculer lorsque selectedViolations change
+  }, [selectedViolations]);
+  
+   // Dépendance pour recalculer lorsque selectedViolations change
   const handleInfractionChange = (value) => {
     console.log("Infraction sélectionnée:", value);
     const selectedInfraction = infractionsList.find(
@@ -238,26 +242,26 @@ const Violations = () => {
   const [createViolation] = useMutation(CREATE_VIOLATION, {
     onCompleted: () => {
       Loading.remove();
-      Report.success('Succès', 'La violation a été enregistrer', 'OK');
+      Report.success(t('violations.succès_ajout'), t('violations.succès_ajout'), 'OK');
       refetch();
       setIsModalVisible(false);
     },
     onError: (err) => {
       Loading.remove();
-      Report.failure('Erreur', `Erreur lors de l'ajout: ${err.message}`, 'OK');
+      Report.failure(t('violations.erreur_ajout'), `${t('violations.erreur_ajout')}: ${err.message}`, 'OK');
     }
   });
   const [updateViolation] = useMutation(UPDATE_VIOLATION);
   const [deleteViolation] = useMutation(DELETE_VIOLATION, {
     onCompleted: () => {
       Loading.remove();
-      Report.success('Succès', 'La violation a été supprimer', 'OK');
+      Report.success(t('violations.succès_suppression'), t('violations.succès_suppression'), 'OK');
       refetch();
       setIsModalVisible(false);
     },
     onError: (err) => {
       Loading.remove();
-      Report.failure('Erreur', `Erreur lors de la supperssion: ${err.message}`, 'OK');
+      Report.failure(t('violations.erreur_suppression'), `${t('violations.erreur_suppression')}: ${err.message}`, 'OK');
     }
   });
   const convertToNumber = (value) => {
@@ -309,7 +313,7 @@ const Violations = () => {
         return;
       }
 
-      Loading.hourglass("Ajout en cours . . .");
+      Loading.hourglass(t('violations.ajout_en_cours '));
 
       // Appel à la mutation
       createViolation({
@@ -326,12 +330,12 @@ const Violations = () => {
         }
       }).then(() => {
         Loading.remove();
-        Report.success('Succès', 'La violation a été enregistrée', 'OK');
+        Report.success(t('violations.succès_ajout'), t('violations.succès_ajout'), 'OK');
         refetch();
         setIsModalVisible(false);
       }).catch(error => {
         Loading.remove();
-        Report.failure('Erreur', `Erreur lors de l'ajout: ${error.message}`, 'OK');
+        Report.failure(t('violations.erreur_ajout'), `${t('violations.erreur_ajout')}: ${err.message}`, 'OK');
       });
 
       form.resetFields();
@@ -358,7 +362,7 @@ const Violations = () => {
       }
       values.amende = totalFine;
       values.violation_type = selectedViolations || '';
-      Loading.hourglass("Modification en cours...");
+      Loading.hourglass(t('violations.mise_a_jour_en_cours'));
       await updateViolation({
         variables: {
           id_violations: values.id_violations,
@@ -375,13 +379,13 @@ const Violations = () => {
 
       form.resetFields();
       Loading.remove();
-      Report.success('Succès', 'La violation a été modifiée', 'OK');
+      Report.success(t('violations.succès_mise_a_jour'), t('violations.succès_mise_a_jour'), 'OK');
       refetch();
       setIsModalVisible(false);
 
     } catch (error) {
       Loading.remove();
-      Report.failure('Erreur', `Erreur lors de la modification: ${error.message}`, 'OK');
+      Report.failure(t('violations.erreur_mise_a_jour'), `${t('violations.erreur_mise_a_jour')}: ${err.message}`, 'OK');
     }
   };
 
@@ -389,11 +393,10 @@ const Violations = () => {
   const handleDeleteViolation = async (id_violations) => {
     try {
       await deleteViolation({ variables: { id_violations } });
-      Report.success('Violation supprimée avec succès');
+      Report.success(t('violations.succès_suppression'), t('violations.succès_suppression'), 'OK');
       refetch();
     } catch (error) {
-      Report.info('Erreur lors de la suppression de la violation:', error);
-      Report.failure('Erreur lors de la suppression de la violation');
+      Report.failure(t('violations.erreur_suppression'), `${t('violations.erreur_suppression')}: ${err.message}`, 'OK');
     }
   };
   const handleViewViolation = (violation) => {
@@ -401,21 +404,21 @@ const Violations = () => {
     setPrintModalVisible(true);
   };
   if (loading) {
-    Loading.hourglass('Chargement des données . . .');
+    Loading.hourglass(t('violations.chargement'));
     return null;
   }
   else {
     Loading.remove();
   }
   if (error) {
-    Report.failure('erreur du chargement', error + message, 'OK');
+    Report.failure(t('violations.erreur_chargement'), t('violations.erreur_chargement'), 'OK');
     return null;
   }
 
 
   const columns = [
     {
-      title: 'ID Violation',
+      title: t('violations.id'),
       dataIndex: 'id_violations',
       key: 'id_violations',
       sorter: (a, b) => a.id_violations - b.id_violations,
@@ -423,25 +426,25 @@ const Violations = () => {
       width: 100, // Ajustez la largeur si nécessaire
     },
     {
-      title: 'Conducteur',
+      title: t('violations.conducteur'),
       dataIndex: 'driver_id',
       key: 'driver_id',
       width: 150,
     },
     {
-      title: 'Agents',
+      title: t('violations.agents'),
       dataIndex: 'officer_id',
       key: 'officer_id',
       width: 150,
     },
     {
-      title: 'Véhicule',
+      title: t('violations.vehicule'),
       dataIndex: 'vehicle_id',
       key: 'vehicle_id',
       width: 150,
     },
     {
-      title: 'Infraction',
+      title: t('violations.infraction'),
       dataIndex: 'violation_type',
       key: 'violation_type',
       render: (violation_type) => {
@@ -454,20 +457,20 @@ const Violations = () => {
       ellipsis: true, // Active la troncature du texte
     },
     {
-      title: 'Description',
+      title: t('violations.desc'),
       dataIndex: 'desc',
       key: 'desc',
       width: 150,
     },
     {
-      title: 'Date',
+      title: t('violations.date'),
       dataIndex: 'date',
       key: 'date',
       render: (text) => text.split("T")[0],
       width: 150,
     },
     {
-      title: 'Localisation',
+      title: t('violations.localisation'),
       dataIndex: 'localisation',
       key: 'localisation',
       render: (text) => (
@@ -481,7 +484,7 @@ const Violations = () => {
       width: 150, // Ajustez la largeur selon vos besoins
     },
     {
-      title: 'Amende',
+      title: t('violations.amende'),
       dataIndex: 'amende',
       key: 'amende',
       render: (text, record) => {
@@ -574,7 +577,7 @@ const Violations = () => {
     printWindow.document.write('<html>');
     printWindow.document.write('<head>');
     printWindow.document.write('<style>');
-    printWindow.document.write('body { font-family: Calibri, sans-serif; margin: 0; padding: 0; }');
+    printWindow.document.write('body { font-family: Times New Roman, sans-serif; margin: 0; padding: 0; }');
     printWindow.document.write('.container { padding: 20px; position: relative; }');
     printWindow.document.write('.header-img { width: 150px; height: auto; }');
     printWindow.document.write('.left-img { position: absolute; top: 20px; left: 28rem; }');
@@ -602,10 +605,10 @@ const Violations = () => {
     printWindow.document.write('<h2><strong>portant le code de la route à Madagascar</strong></h2>');
     printWindow.document.write('<h2>DETAILS DE L\'INFRACTION</h2>');
     printWindow.document.write(`<p>Cette infraction a été effectuée par ${viewViolation.driver_id}, conduisant le véhicule N° ${viewViolation.vehicle_id}, signalée par l'agent ${viewViolation.officer_id}.</p>`);
-    printWindow.document.write(`<p><strong>Type de Violation:</strong> ${violationTypes.join(' - ')}</p>`);
+    printWindow.document.write(`<p><strong>Type d\'infraction':</strong> ${violationTypes.join(' - ')}</p>`);
     printWindow.document.write(`<p><strong>Description:</strong> ${viewViolation.desc || 'Aucune description disponible'}</p>`);
-    printWindow.document.write(`<p><strong>Date:</strong> ${moment(viewViolation.date).format('DD/MM/YYYY')}</p>`);
-    printWindow.document.write(`<p><strong>Localisation:</strong> ${viewViolation.localisation}</p>`);
+    printWindow.document.write(`<p><strong>Date de l'incident:</strong> ${moment(viewViolation.date).format('DD/MM/YYYY')}</p>`);
+    printWindow.document.write(`<p><strong>Localisation de l'infraction:</strong> ${viewViolation.localisation}</p>`);
 
   
     printWindow.document.write('<div class="table-container">');
@@ -673,7 +676,7 @@ const Violations = () => {
         <span className="tooltiptext">Exporter en excel</span>
       </div>
       <button className='custom-button' onClick={showModal}>
-        Ajouter une Violation
+        {t('violations.ajouter')}
       </button>
       <LocationModal
         visible={locationModalVisible}
@@ -695,7 +698,7 @@ const Violations = () => {
       </div>
 
       <Modal
-        title={editingViolation ? 'Modifier la Violation' : 'Ajouter une Violation'}
+        title={editingViolation ? t('violations.mettre_a_jour') : t('violations.ajouter')}
         open={isModalVisible}
         onCancel={handleCancel}
         footer={null}
@@ -709,7 +712,7 @@ const Violations = () => {
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                label="ID Violation"
+                label={t('violations.id')}
                 name="id_violations"
                 rules={[{ required: true, message: 'Veuillez saisir l\'ID de la violation!' }]}
               >
@@ -718,7 +721,7 @@ const Violations = () => {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Conducteur"
+                label={t('violations.conducteur')}
                 name="driver_id"
                 rules={[{ required: true, message: 'Veuillez entrer le conducteur!' }]}
               >
@@ -740,7 +743,7 @@ const Violations = () => {
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                label="Officier"
+                label={t('violations.agents')}
                 name="officer_id"
                 rules={[{ required: true, message: 'Veuillez entrer l\'officier!' }]}
               >
@@ -755,7 +758,7 @@ const Violations = () => {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Véhicule"
+                label={t('violations.vehicule')}
                 name="vehicle_id"
                 rules={[{ required: true, message: 'Veuillez entrer le véhicule!' }]}
               >
@@ -772,7 +775,7 @@ const Violations = () => {
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                label="Type de Violation"
+                label={t('violations.infraction')}
                 name="violation_type"
                 rules={[{ required: true, message: 'Veuillez entrer le type d\'infracion!' }]}
               >
@@ -787,7 +790,7 @@ const Violations = () => {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Description"
+                label={t('violations.desc')}
                 name="desc"
                 rules={[{ required: true, message: 'Veuillez saisir la description!' }]}
               >
@@ -798,7 +801,7 @@ const Violations = () => {
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                label="Date"
+                label={t('violations.date')}
                 name="date"
                 rules={[{ required: true, message: 'Veuillez sélectionner la date!' }]}
               >
@@ -825,7 +828,7 @@ const Violations = () => {
               />
             </Col>
             <Form.Item
-              label="AMENDE"
+              label={t('violations.amende')}
               name="amende"
             >
               <p style={{ margin: '0', fontSize: '1.2em' }}>
@@ -840,7 +843,7 @@ const Violations = () => {
           </Row>
           <Form.Item>
             <button className="custom-button" type="submit" block={true}>
-              {editingViolation ? 'Mettre à jour' : 'Soumettre'}
+              {editingViolation ? t('violations.mettre_a_jour') : t('violations.soummettre')}
             </button>
           </Form.Item>
         </Form>
@@ -852,12 +855,12 @@ const Violations = () => {
         onSelectLocation={handleSelectLocation}
       />
       <Modal
-        title="Détails de la Violation"
+        title={t('violations.detail')}
         open={printModalVisible}
         onCancel={() => setPrintModalVisible(false)}
         footer={[
           <button key="print" className='custom-button' onClick={handlePrint}>
-            Imprimer
+            {t('violations.imprimer')}
           </button>,
         ]}
       >
@@ -876,15 +879,15 @@ const Violations = () => {
               localisation={viewViolation.localisation}
             />
             <p>
-              Cette violation a été effectuée par <strong>{viewViolation.driver_id}</strong>,
-              conduisant le véhicule <strong>{viewViolation.vehicle_id}</strong>,
-              signalée par l'agent <strong>{viewViolation.officer_id}</strong>.
+              {t('violations.desc1')} <strong>{viewViolation.driver_id}</strong> ,
+               {t('violations.desc2')} <strong>{viewViolation.vehicle_id}</strong> ,
+               {t('violations.desc3')} <strong>{viewViolation.officer_id}</strong>.
             </p>
-            <p><strong>Type de Violation:</strong> {violationTypes.join(' - ') || 'Inconnu'}</p>
-            <p><strong>Description:</strong> {viewViolation.desc || 'Aucune description disponible'}</p>
-            <p><strong>Montant de l'Amende:</strong> <strong>{viewViolation.amende || 'Non défini'}  Ar</strong></p>
-            <p><strong>Date:</strong> {moment(viewViolation.date).format('DD/MM/YYYY')}</p>
-            <p><strong>Localisation:</strong> {viewViolation.localisation}</p>
+            <p><strong>{t('violations.infraction')}:</strong> {violationTypes.join(' - ') || 'Inconnu'}</p>
+            <p><strong>{t('violations.desc')}:</strong> {viewViolation.desc || 'Aucune description disponible'}</p>
+            <p><strong>{t('violations.amende')}:</strong> <strong>{viewViolation.amende || 'Non défini'}  Ar</strong></p>
+            <p><strong>{t('violations.date')}:</strong> {moment(viewViolation.date).format('DD/MM/YYYY')}</p>
+            <p><strong>{t('violations.localisation')}:</strong> {viewViolation.localisation}</p>
           </>
         )}
 

@@ -8,6 +8,7 @@ import { EditTwoTone, DeleteTwoTone } from '@ant-design/icons';
 import "../../assets/css/Vehicules.css";
 import * as XLSX from 'xlsx';
 import excel from "../../assets/images/excel.ico";
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 
@@ -92,6 +93,8 @@ const Vehicules = () => {
   const { loading: driversLoading, error: driversError, data: driversData } = useQuery(GET_DRIVERS);
   const [driversMap, setDriversMap] = useState({});
   const [searchText, setSearchText] = useState('');
+  const {t} = useTranslation();
+
   const handleSearch = (value) => {
     setSearchText(value);
   };
@@ -109,38 +112,38 @@ const Vehicules = () => {
   const [createVehicle] = useMutation(ADD_VEHICLE, {
     onCompleted: () => {
       Loading.remove();
-      Report.success('Succès', 'Véhicule ajouté avec succès', 'OK');
+      Report.success(t('vehicule.succès_ajout'), t('vehicule.succès_ajout'), 'OK');
       refetch();
       setIsModalVisible(false);
     },
     onError: (err) => {
       Loading.remove();
-      Report.failure('Erreur', `Erreur lors de l'ajout: ${err.message}`, 'OK');
+      Report.failure(t('vehicule.erreur_ajout'), `${t('vehicule.erreur_ajout')}: ${err.message}`, 'OK');
     }
   });
   
   const [updateVehicle] = useMutation(UPDATE_VEHICLE, {
     onCompleted: () => {
       Loading.remove();
-      Report.success('Succès', 'Véhicule mis à jour avec succès', 'OK');
+      Report.success(t('vehicule.succès_mise_a_jour'), t('vehicule.succès_mise_a_jour'), 'OK');
       refetch();
       setIsModalVisible(false);
     },
     onError: (err) => {
       Loading.remove();
-      Report.failure('Erreur', `Erreur lors de la mise à jour: ${err.message}`, 'OK');
+      Report.failure(t('vehicule.erreur_mise_a_jour'), `${t('vehicule.erreur_mise_a_jour')}: ${err.message}`, 'OK');
     }
   });
   
   const [deleteVehicle] = useMutation(DELETE_VEHICLE, {
     onCompleted: () => {
       Loading.remove();
-      Report.success('Succès', 'Véhicule supprimé avec succès', 'OK');
+      Report.success(t('vehicule.succès_suppression'), t('agents.succès_suppression'), 'OK');
       refetch();
     },
     onError: (err) => {
       Loading.remove();
-      Report.failure('Erreur', `Erreur lors de la suppression: ${err.message}`, 'OK');
+      Report.failure(t('vehicule.erreur_suppression'), `${t('vehicule.erreur_suppression')}: ${err.message}`, 'OK');
     }
   });
 
@@ -156,7 +159,7 @@ const Vehicules = () => {
         return;
       }
   
-      Loading.hourglass('Ajout en cours...');
+      Loading.hourglass(t('vehicule.ajout_en_cours '));
       createVehicle({
         variables: { 
           id_vehicles: values.id_vehicles,
@@ -189,7 +192,7 @@ const Vehicules = () => {
         return;
       }
   
-      Loading.hourglass('Mise à jour en cours...');
+      Loading.hourglass(t('vehicule.mise_a_jour_en_cours'));
       updateVehicle({
         variables: { 
           id_vehicles: values.id_vehicles,
@@ -207,19 +210,19 @@ const Vehicules = () => {
   };
 
   const handleDeleteVehicle = (id_vehicles) => {
-    Loading.hourglass('Suppression en cours...');
+    Loading.hourglass(t('vehicule.suppression_en_cours'));
     deleteVehicle({ variables: { id_vehicles } });
   };
   
   if (loading || driversLoading) {
-    Loading.hourglass('Chargement des données . . .');
+    Loading.hourglass(t('vehicule.chargement'));
     return null;
   } else {
     Loading.remove();
   }
 
   if (error || driversError) {
-    Report.failure("Erreur de chargement", "Vérifiez votre connexion", "OK");
+    Report.failure(t('vehicule.erreur_chargement'), t('vehicule.erreur_chargement'), 'OK');
     return null;
   }
   
@@ -234,34 +237,34 @@ const Vehicules = () => {
 
   const columns = [
     {
-      title: 'ID Véhicule',
+      title: t('vehicule.id'),
       dataIndex: 'id_vehicles',
       key: 'id_vehicles',
       sorter: (a, b) => a.id_vehicles - b.id_vehicles, 
       sortDirections: ['ascend', 'descend'],
     },
     {
-      title: 'Plaque d\'immatriculation',
+      title:  t('vehicule.immatriculation'),
       dataIndex: 'licence_plate',
       key: 'licence_plate',
     },
     {
-      title: 'Marque',
+      title:  t('vehicule.marque'),
       dataIndex: 'mark',
       key: 'mark',
     },
     {
-      title: 'Modèle',
+      title:  t('vehicule.modele'),
       dataIndex: 'modele',
       key: 'modele',
     },
     {
-      title: 'Année',
+      title:  t('vehicule.annee'),
       dataIndex: 'year',
       key: 'year',
     },
     {
-      title: 'Couleur',
+      title:  t('vehicule.couleur'),
       dataIndex: 'color',
       key: 'color',
       render: (color) => (
@@ -274,7 +277,7 @@ const Vehicules = () => {
       ),
     },
     {
-      title: 'Conducteur',
+      title:  t('vehicule.conducteur'),
       dataIndex: 'owner_id',
       key: 'owner_id',
       render: (owner) => {
@@ -282,7 +285,7 @@ const Vehicules = () => {
           return <span style={{ color: 'red', marginLeft: '35px' }}>Non défini</span>;
         }
         return (
-          <span style={{ marginLeft: '40px', color: 'blue' }}>{owner}</span>
+          <span style={{ color: 'blue' }}>{t('vehicule.num_conduct')} {owner}</span>
         );
       },
     },
@@ -324,7 +327,7 @@ const Vehicules = () => {
         <span className="tooltiptext">Exporter en excel</span>
       </div>
       <button className='custom-button' onClick={() => { setIsEditing(false); setCurrentVehicle(null); setIsModalVisible(true); }}>
-        Ajouter un Véhicule
+        {t('vehicule.ajouter')}
       </button>
       <Row gutter={32}>
         <Col span={24}>
@@ -341,12 +344,12 @@ const Vehicules = () => {
         </Col>
       </Row>
       <Modal
-        title={isEditing ? 'Modifier le Véhicule' : 'Ajouter un Véhicule'}
+        title={isEditing ? t('vehicule.mettre_a_jour') : t('vehicule.soumettre')}
         open={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
         footer={[
           <button key="submit" className='submit-button' onClick={isEditing ? handleUpdateVehicle : handleAddVehicle}>
-            {isEditing ? 'Mettre à jour' : 'Soumettre'}
+            {isEditing ? t('vehicule.mettre_a_jour') : t('vehicule.soumettre')}
           </button>,
         ]}
       >

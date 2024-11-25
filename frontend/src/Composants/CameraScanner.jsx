@@ -3,12 +3,11 @@ import Webcam from 'react-webcam';
 import { Button, Modal, Image, notification, Upload, Checkbox } from 'antd';
 import Tesseract from 'tesseract.js';
 import Camera from "../assets/images/cam.png";
-
+import { useTranslation } from 'react-i18next';
 import { hatch } from 'ldrs';
 
 hatch.register();
 
-// Default values shown
 
 const CameraScanner = ({ visible, onClose, onCapture }) => {
   const webcamRef = useRef(null);
@@ -17,7 +16,7 @@ const CameraScanner = ({ visible, onClose, onCapture }) => {
   const [ocrResult, setOcrResult] = useState('');
   const [fileLoading, setFileLoading] = useState(false);
   const [skipScan, setSkipScan] = useState(false); // Nouvel état pour gérer le passage du scan
-
+  const {t} = useTranslation();
   // Regular expressions for validation
   const patterns = {
     dateOfBirth: /\bDate de Naissance:\s*(\d{2}\/\d{2}\/\d{4})\b/i,
@@ -45,8 +44,8 @@ const CameraScanner = ({ visible, onClose, onCapture }) => {
 
     if (!isValid) {
       notification.error({
-        message: 'Validation échouée',
-        description: `Le permis de conduire est invalide. Les champs manquants sont : ${missingFields.join(', ')}.`,
+        message: t('permis.validation'),
+        description: t('permis.desc' , missingFields.join(', ')),
       });
     }
 
@@ -61,10 +60,8 @@ const CameraScanner = ({ visible, onClose, onCapture }) => {
   }, [webcamRef]);
 
   // Enhance image for OCR
-  const enhanceImage = (img) => {
-    // Example of image enhancement (you can use libraries like `sharp` or `opencv.js`)
-    // For simplicity, we'll just return the image as is.
-    return img;
+  const enhanceImage = (image) => {
+    return image;
   };
 
   // Perform OCR on the captured photo
@@ -73,29 +70,28 @@ const CameraScanner = ({ visible, onClose, onCapture }) => {
       setLoading(true);
 
       const enhancedImage = enhanceImage(image);
-
       Tesseract.recognize(
         enhancedImage,
-        'eng',
+        'fr',
         {
           logger: info => console.log(info),
-          // Add any OCR configuration here
+          
         }
       ).then(({ data: { text } }) => {
         setOcrResult(text);
         setLoading(false);
         if (validatePermit(text)) {
           notification.success({
-            message: 'OCR Réussi',
-            description: 'Le texte a été extrait avec succès.',
+            message: t('permis.valide'),
+            description: t('permis.desc1'),
           });
           onCapture(text);
         }
       }).catch(error => {
         setLoading(false);
         notification.error({
-          message: 'Erreur OCR',
-          description: `Erreur lors de l'extraction du texte : ${error.message}`,
+          message: t('permis.err'),
+          description: t('permis.desc2' , error.message),
         });
       });
     } else {
@@ -105,39 +101,6 @@ const CameraScanner = ({ visible, onClose, onCapture }) => {
       });
     }
   }, [image, onCapture]);
-
-  // Handle file upload
-  const handleFileChange = (info) => {
-    if (info.file.status === 'done') {
-      setFileLoading(true);
-
-      const file = info.file.originFileObj;
-      Tesseract.recognize(
-        file,
-        'eng',
-        {
-          logger: info => console.log(info),
-          // Add any OCR configuration here
-        }
-      ).then(({ data: { text } }) => {
-        setOcrResult(text);
-        setFileLoading(false);
-        if (validatePermit(text)) {
-          notification.success({
-            message: 'OCR Réussi',
-            description: 'Le texte a été extrait avec succès.',
-          });
-          onCapture(text);
-        }
-      }).catch(error => {
-        setFileLoading(false);
-        notification.error({
-          message: 'Erreur OCR',
-          description: `Erreur lors de l'extraction du texte : ${error.message}`,
-        });
-      });
-    }
-  };
 
   // Handle modal close
   const handleClose = () => {
@@ -165,12 +128,12 @@ const CameraScanner = ({ visible, onClose, onCapture }) => {
 
   return (
     <Modal
-      title="Scanner le Permis de Conduire"
+      title={t('permis.scan')}
       open={visible}
       onCancel={handleClose}
       footer={[
         <Button key="scan" className='custom-button' onClick={scan} disabled={!image || skipScan}>
-          Scanner
+          {t('permis.btn')}
         </Button>,
         <Checkbox
           key="skip"
@@ -178,7 +141,7 @@ const CameraScanner = ({ visible, onClose, onCapture }) => {
           onChange={handleSkipChange}
           style={{ marginRight: '10px' }}
         >
-          J'ai déjà vérifié le permis de conduire
+         {t('permis.check')}
         </Checkbox>
       ]}
       width={800}
@@ -218,7 +181,7 @@ const CameraScanner = ({ visible, onClose, onCapture }) => {
       ></l-hatch>}
       {ocrResult && (
         <div style={{ marginTop: 20 }}>
-          <h3>Information du permis de conduire :</h3>
+          <h3>{t('permis.info')}</h3>
           <p>{ocrResult}</p>
         </div>
       )}

@@ -120,7 +120,7 @@ const Agents = () => {
 
   const handleAddAgent = () => {
     form.validateFields().then(values => {
-      Loading.hourglass(t('Ajout en cours '));
+      Loading.hourglass(t('agents.ajout_en_cours '));
       createPolice({ variables: values });
       form.resetFields();
     }).catch(info => {
